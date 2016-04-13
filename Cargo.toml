@@ -2,5 +2,7 @@
 name = "vectormath"
 version = "0.1.0"
 authors = ["David Lin <davll.xc@gmail.com>"]
+description = "A vector math library for computer graphics and video games"
 repository = "https://github.com/davll/vectormath-rs"
 license = "MIT"
+exclude = [".gitignore", ".gitattributes", "README.md"]
