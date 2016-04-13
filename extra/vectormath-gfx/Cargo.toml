@@ -1,0 +1,10 @@
+[package]
+name = "vectormath-gfx"
+version = "0.1.0"
+authors = ["David Lin <davll.xc@gmail.com>"]
+
+#[dependencies]
+#vectormath = { git = "https://github.com/davll/vectormath-rs" }
+
+[dependencies]
+vectormath = { path = "../.." }
