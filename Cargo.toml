@@ -1,0 +1,6 @@
+[package]
+name = "vectormath"
+version = "0.1.0"
+authors = ["David Lin <davll.xc@gmail.com>"]
+repository = "https://github.com/davll/vectormath-rs"
+license = "MIT"

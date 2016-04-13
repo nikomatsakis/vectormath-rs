@@ -1,0 +1,12 @@
+# Ignore OS Files
+.DS_Store
+*.swp
+*~
+
+# Ignore Generated Files
+/target
+/Cargo.lock
+
+# Ignore Temp Files
+/tmp
+/*.tmp
