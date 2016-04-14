@@ -2,6 +2,8 @@
 
 A vector math library written in Rust for computer graphics and video games
 
+[![Build Status](https://travis-ci.org/davll/vectormath-rs.svg?branch=master)](https://travis-ci.org/davll/vectormath-rs)
+
 ## Features
 
 The library provides:

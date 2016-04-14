@@ -6,3 +6,7 @@ description = "A vector math library for computer graphics and video games"
 repository = "https://github.com/davll/vectormath-rs"
 license = "MIT"
 exclude = [".gitignore", ".gitattributes", "README.md"]
+
+[features]
+default = []
+unstable = []
