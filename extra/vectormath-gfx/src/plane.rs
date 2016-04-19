@@ -1,7 +1,7 @@
 //! Plane
 
-use ::Float;
-use vectormath::Pos3;
+use vectormath::float::Float;
+use ::Pos3;
 
 /// Plane equation: ax + by + cz + d = 0
 #[derive(Debug, Copy, Clone)]
@@ -17,7 +17,7 @@ impl<T: Float> Plane<T> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use vectormath::Pos3;
+    use ::Pos3;
 
     #[test]
     fn test_distance() {

@@ -1,7 +1,7 @@
 //! Camera
 
-use ::Float;
-use vectormath::{Rad, Pos3, Vec3, Vec4, Mat3, Mat4, Tfm3, Quat};
+use vectormath::float::Float;
+use ::{Rad, Pos3, Vec3, Vec4, Mat3, Mat4, Tfm3, Quat};
 
 #[derive(Debug, Copy, Clone)]
 pub struct CameraTransform<T> {
@@ -114,7 +114,7 @@ impl<T: Float> CameraTransformMatrix<T> {
     }
 }
 
-impl<T: Float> From<CameraPerspectiveProjection<T>> for ProjectionMatrix<T> {
+impl<T: Float + PartialOrd> From<CameraPerspectiveProjection<T>> for ProjectionMatrix<T> {
     fn from(proj: CameraPerspectiveProjection<T>) -> ProjectionMatrix<T> {
         assert!(proj.left   < proj.right, "`left` should be less than `right`, found: left: {:?} right: {:?}", proj.left, proj.right);
         assert!(proj.bottom < proj.top,   "`bottom` should be less than `top`, found: bottom: {:?} top: {:?}", proj.bottom, proj.top);
@@ -138,13 +138,13 @@ impl<T: Float> From<CameraPerspectiveProjection<T>> for ProjectionMatrix<T> {
     }
 }
 
-impl<T: Float> From<CameraPerspectiveFovProjection<T>> for ProjectionMatrix<T> {
+impl<T: Float + PartialOrd> From<CameraPerspectiveFovProjection<T>> for ProjectionMatrix<T> {
     fn from(proj: CameraPerspectiveFovProjection<T>) -> ProjectionMatrix<T> {
         ProjectionMatrix::from(CameraPerspectiveProjection::from(proj))
     }
 }
 
-impl<T: Float> From<CameraOrthographicProjection<T>> for ProjectionMatrix<T> {
+impl<T: Float + PartialOrd> From<CameraOrthographicProjection<T>> for ProjectionMatrix<T> {
     fn from(proj: CameraOrthographicProjection<T>) -> ProjectionMatrix<T> {
         assert!(proj.left   < proj.right, "`left` should be less than `right`, found: left: {:?} right: {:?}", proj.left, proj.right);
         assert!(proj.bottom < proj.top,   "`bottom` should be less than `top`, found: bottom: {:?} top: {:?}", proj.bottom, proj.top);
@@ -168,7 +168,7 @@ impl<T: Float> From<CameraOrthographicProjection<T>> for ProjectionMatrix<T> {
     }
 }
 
-impl<T: Float> From<CameraPerspectiveFovProjection<T>> for CameraPerspectiveProjection<T> {
+impl<T: Float + PartialOrd> From<CameraPerspectiveFovProjection<T>> for CameraPerspectiveProjection<T> {
     #[inline]
     fn from(p: CameraPerspectiveFovProjection<T>) -> CameraPerspectiveProjection<T> {
         assert!(p.fovy.0 > T::zero(), "The vertical field of view cannot be below zero, found: {:?}", p.fovy);
@@ -196,7 +196,7 @@ impl<T: Float> From<CameraPerspectiveFovProjection<T>> for CameraPerspectiveProj
 #[cfg(test)]
 mod tests {
     use super::*;
-    use vectormath::{Rad, Deg, Vec3, Pos3, Quat, Tfm3};
+    use ::{Rad, Deg, Vec3, Pos3, Tfm3, Quat};
 
     #[test]
     fn test_camera_transform() {

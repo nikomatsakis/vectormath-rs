@@ -1,7 +1,7 @@
 //! Frustum
 
-use ::Float;
-use vectormath::{Pos3, Vec3, Vec4, Mat3, Mat4};
+use vectormath::float::Float;
+use ::{Pos3, Vec3, Vec4, Mat3, Mat4};
 use plane::Plane;
 use camera::ProjectionMatrix;
 
@@ -184,7 +184,7 @@ fn find_corner<T: Float>(cp: Pos3<T>, a: &Mat4<T>) -> Pos3<T> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use vectormath::Pos3;
+    use ::Pos3;
     use camera::ProjectionMatrix;
 
     fn proj_mat() -> ProjectionMatrix<f64> {
