@@ -4,7 +4,9 @@ version = "0.1.0"
 authors = ["David Lin <davll.xc@gmail.com>"]
 description = "A vector math library for computer graphics and video games"
 repository = "https://github.com/davll/vectormath-rs"
+documentation = "http://davll.github.io/vectormath-rs"
 license = "MIT"
+keywords = ["math", "vector", "matrix", "quaternion", "gamedev"]
 exclude = [".gitignore", ".gitattributes", "README.md"]
 
 [features]
