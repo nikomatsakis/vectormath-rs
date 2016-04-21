@@ -4,11 +4,11 @@
 
 use float::Float;
 
-/// Radian representation of angle
+/// Angle in radians
 #[derive(Debug, Copy, Clone)]
 pub struct Rad<T>(pub T);
 
-/// Degree representation of angle
+/// Angle in degrees
 #[derive(Debug, Copy, Clone)]
 pub struct Deg<T>(pub T);
 

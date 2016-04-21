@@ -16,7 +16,7 @@ pub trait Float:
     + Div<Self, Output = Self>
     + Rem<Self, Output = Self>
     + Neg<Output = Self>
-    + Min + Max + Ops + Trig
+    + Min + Max + Clamp + Ops + Trig
 {
     /// Constant 1
     fn one() -> Self;

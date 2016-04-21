@@ -94,6 +94,7 @@ impl<T> Neg for Quat<T> where T: Float {
 
 impl<T> Not for Quat<T> where T: Float {
     type Output = Quat<T>;
+    /// Conjugate
     fn not(self) -> Quat<T> {
         Quat { w: self.w, x: -self.x, y: -self.y, z: -self.z }
     }
@@ -165,6 +166,11 @@ impl<T: Float> Quat<T> {
 
         let cond = cos_ht.gt(T::one() - T::epsilon());
         case0.sel(case1, cond)
+    }
+
+    /// extract xyz components
+    pub fn xyz(self) -> Vec3<T> {
+        Vec3 { x: self.x, y: self.y, z: self.z }
     }
 }
 
@@ -253,11 +259,22 @@ impl<T> From<Quat<T>> for Mat3<T> where T: Float {
     }
 }
 
+impl<T: Float> From<Vec3<T>> for Quat<T> {
+    fn from(v: Vec3<T>) -> Quat<T> {
+        Quat { w: T::zero(), x: v.x, y: v.y, z: v.z }
+    }
+}
+
 /// Constructors
 impl<T: Float> Quat<T> {
     /// Construct an identity quaternion
     pub fn identity() -> Quat<T> {
         Quat { w: T::one(), x: T::zero(), y: T::zero(), z: T::zero() }
+    }
+
+    /// Construct a zero quaternion
+    pub fn zero() -> Quat<T> {
+        Quat { w: T::zero(), x: T::zero(), y: T::zero(), z: T::zero() }
     }
 
     /// Construct a quaternion that rotates by `angle` around `axis`
@@ -437,6 +454,15 @@ mod tests_quat {
     }
 
     #[test]
+    fn test_xyz() {
+        let a = Quat { x: 1.0, y: 2.0, z: 3.0, w: 4.0 };
+        let b = a.xyz();
+        assert_eq!(b.x, 1.0);
+        assert_eq!(b.y, 2.0);
+        assert_eq!(b.z, 3.0);
+    }
+
+    #[test]
     fn test_sel() {
         let a = Quat { x: 1.0, y: 2.0, z: 3.0, w: 4.0 };
         let b = Quat { x: 0.5, y: -3.5, z: 0.0, w: 5.0 };
@@ -456,6 +482,15 @@ mod tests_quat {
     fn test_identity() {
         let q: Quat<f64> = Quat::identity();
         assert_eq!(q.w, 1.0);
+        assert_eq!(q.x, 0.0);
+        assert_eq!(q.y, 0.0);
+        assert_eq!(q.z, 0.0);
+    }
+
+    #[test]
+    fn test_zero() {
+        let q: Quat<f64> = Quat::zero();
+        assert_eq!(q.w, 0.0);
         assert_eq!(q.x, 0.0);
         assert_eq!(q.y, 0.0);
         assert_eq!(q.z, 0.0);
@@ -580,6 +615,16 @@ mod tests_conversion {
         assert_eq!(q.x, 0.0);
         assert_eq!(q.y, 0.0);
         assert_eq!(q.z, 1.0);
+    }
+
+    #[test]
+    fn test_vec3_to_quat() {
+        let v = Vec3 { x: 4.0, y: 5.0, z: 6.0 };
+        let q = Quat::from(v);
+        assert_eq!(q.w, 0.0);
+        assert_eq!(q.x, 4.0);
+        assert_eq!(q.y, 5.0);
+        assert_eq!(q.z, 6.0);
     }
 
     #[allow(dead_code)]
