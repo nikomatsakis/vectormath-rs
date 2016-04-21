@@ -9,6 +9,10 @@ use std::ops::{Add, Sub, Mul, Neg, Not};
 use std::convert::From;
 
 /// Quaternion
+///
+/// # Definition
+///
+/// $$ \mathbb{Q} = w + x \mathbf{i} + y \mathbf{j} + z \mathbf{k} $$
 #[derive(Debug, Copy, Clone)]
 pub struct Quat<T> {
     /// real part (scalar part)

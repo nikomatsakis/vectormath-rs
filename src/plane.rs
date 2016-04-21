@@ -8,7 +8,10 @@ use vector::{Pos3, Vec3};
 ///
 /// # Equation
 ///
-/// `ax + by + cz + d = 0` where `(a, b, c) = (normal.x, normal.y, normal.z)`
+/// $$
+///   \mathrm a x + \mathrm b y + \mathrm c z + \mathrm d = 0
+/// $$
+/// where its normal vector is defined as " $ \mathrm a \mathbf{i} + \mathrm b \mathbf{j} + \mathrm c \mathbf{k} $ "
 #[derive(Copy, Clone, Debug)]
 pub struct Plane<T> {
     /// Normal vector (`a`, `b`, `c` coefficients)
