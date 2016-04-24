@@ -20,12 +20,14 @@ pub mod angle;
 pub mod vector;
 pub mod matrix;
 pub mod quaternion;
+pub mod dual_quaternion;
 pub mod plane;
 
 pub use angle::{Rad, Deg};
 pub use vector::{Vec3, Vec4, Pos3};
 pub use matrix::{Mat3, Mat4, Tfm3};
 pub use quaternion::Quat;
+pub use dual_quaternion::DualQuat;
 pub use plane::Plane;
 
 use float::{Min, Max};
