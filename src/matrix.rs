@@ -8,21 +8,70 @@ use std::ops::{Add, Sub, Mul, Neg};
 use std::convert::From;
 
 /// 3x3 Column-major Matrix
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{M} = \begin{bmatrix}
+///                    m_{0,x} & m_{1,x} & m_{2,x} \\
+///                    m_{0,y} & m_{1,y} & m_{2,y} \\
+///                    m_{0,z} & m_{1,z} & m_{2,z}
+///                \end{bmatrix}
+///     = \left[ \begin{array}{c|c|c} \mathbf{m_0} & \mathbf{m_1} & \mathbf{m_2} \end{array} \right]
+///     \in \mathbb{R}^{3 \times 3} \\
+///   \textrm{where } \mathbf{m_0}, \mathbf{m_1}, \mathbf{m_2} \textrm{ are column vectors } \in \mathbb{R}^3
+/// $$</div>
 #[derive(Debug, Copy, Clone)]
 pub struct Mat3<T>(pub Vec3<T>, pub Vec3<T>, pub Vec3<T>);
 
 /// 4x4 Column-major Matrix
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{M} = \begin{bmatrix}
+///                    m_{0,x} & m_{1,x} & m_{2,x} & m_{3,x} \\
+///                    m_{0,y} & m_{1,y} & m_{2,y} & m_{3,y} \\
+///                    m_{0,z} & m_{1,z} & m_{2,z} & m_{3,z} \\
+///                    m_{0,w} & m_{1,w} & m_{2,w} & m_{3,w}
+///                \end{bmatrix}
+///     = \left[ \begin{array}{c|c|c|c} \mathbf{m_0} & \mathbf{m_1} & \mathbf{m_2} & \mathbf{m_3} \end{array} \right]
+///     \in \mathbb{R}^{4 \times 4} \\
+///   \textrm{where } \mathbf{m_0}, \mathbf{m_1}, \mathbf{m_2}, \mathbf{m_3} \textrm{ are column vectors } \in \mathbb{R}^4
+/// $$</div>
 #[derive(Debug, Copy, Clone)]
 pub struct Mat4<T>(pub Vec4<T>, pub Vec4<T>, pub Vec4<T>, pub Vec4<T>);
 
 /// 3-D Affine Transform Matrix
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{M} = \begin{bmatrix}
+///                    m_{0,x} & m_{1,x} & m_{2,x} & m_{3,x} \\
+///                    m_{0,y} & m_{1,y} & m_{2,y} & m_{3,y} \\
+///                    m_{0,z} & m_{1,z} & m_{2,z} & m_{3,z}
+///                \end{bmatrix}
+///     = \left[ \begin{array}{c|c} \mathbf{R} & \mathbf{t} \end{array} \right]
+///     \in \mathbb{R}^{3 \times 4} \\
+///   \textrm{where } \mathbf{R} \textrm{ is a 3x3 linear transformation matrix } \in \mathbb{R}^{3 \times 3}
+///   \textrm{, and } \mathbf{t} \textrm{ is a 3-D translation vector } \in \mathbb{R}^3
+/// $$</div>
 #[derive(Debug, Copy, Clone)]
 pub struct Tfm3<T>(pub Vec3<T>, pub Vec3<T>, pub Vec3<T>, pub Vec3<T>);
 
-//
-// Addition
-//
-
+/// Addition
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} + \mathbf{B} =
+///       \left[ \begin{array}{c|c|c}
+///           \mathbf{a_0} + \mathbf{b_0} &
+///           \mathbf{a_1} + \mathbf{b_1} &
+///           \mathbf{a_2} + \mathbf{b_2}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Add for Mat3<T> where T: Float {
     type Output = Mat3<T>;
     fn add(self, _rhs: Mat3<T>) -> Mat3<T> {
@@ -32,6 +81,19 @@ impl<T> Add for Mat3<T> where T: Float {
     }
 }
 
+/// Addition
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} + \mathbf{B} =
+///       \left[ \begin{array}{c|c|c|c}
+///           \mathbf{a_0} + \mathbf{b_0} &
+///           \mathbf{a_1} + \mathbf{b_1} &
+///           \mathbf{a_2} + \mathbf{b_2} &
+///           \mathbf{a_3} + \mathbf{b_3}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Add for Mat4<T> where T: Float {
     type Output = Mat4<T>;
     fn add(self, _rhs: Mat4<T>) -> Mat4<T> {
@@ -42,6 +104,19 @@ impl<T> Add for Mat4<T> where T: Float {
     }
 }
 
+/// Addition
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} + \mathbf{B} =
+///       \left[ \begin{array}{c|c|c|c}
+///           \mathbf{a_0} + \mathbf{b_0} &
+///           \mathbf{a_1} + \mathbf{b_1} &
+///           \mathbf{a_2} + \mathbf{b_2} &
+///           \mathbf{a_3} + \mathbf{b_3}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Add for Tfm3<T> where T: Float {
     type Output = Tfm3<T>;
     fn add(self, _rhs: Tfm3<T>) -> Tfm3<T> {
@@ -52,10 +127,18 @@ impl<T> Add for Tfm3<T> where T: Float {
     }
 }
 
-//
-// Subtraction
-//
-
+/// Subtraction
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} - \mathbf{B} =
+///       \left[ \begin{array}{c|c|c}
+///           \mathbf{a_0} - \mathbf{b_0} &
+///           \mathbf{a_1} - \mathbf{b_1} &
+///           \mathbf{a_2} - \mathbf{b_2}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Sub for Mat3<T> where T: Float {
     type Output = Mat3<T>;
     fn sub(self, _rhs: Mat3<T>) -> Mat3<T> {
@@ -65,6 +148,19 @@ impl<T> Sub for Mat3<T> where T: Float {
     }
 }
 
+/// Subtraction
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} - \mathbf{B} =
+///       \left[ \begin{array}{c|c|c|c}
+///           \mathbf{a_0} - \mathbf{b_0} &
+///           \mathbf{a_1} - \mathbf{b_1} &
+///           \mathbf{a_2} - \mathbf{b_2} &
+///           \mathbf{a_3} - \mathbf{b_3}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Sub for Mat4<T> where T: Float {
     type Output = Mat4<T>;
     fn sub(self, _rhs: Mat4<T>) -> Mat4<T> {
@@ -75,6 +171,19 @@ impl<T> Sub for Mat4<T> where T: Float {
     }
 }
 
+/// Subtraction
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} - \mathbf{B} =
+///       \left[ \begin{array}{c|c|c|c}
+///           \mathbf{a_0} - \mathbf{b_0} &
+///           \mathbf{a_1} - \mathbf{b_1} &
+///           \mathbf{a_2} - \mathbf{b_2} &
+///           \mathbf{a_3} - \mathbf{b_3}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Sub for Tfm3<T> where T: Float {
     type Output = Tfm3<T>;
     fn sub(self, _rhs: Tfm3<T>) -> Tfm3<T> {
@@ -85,10 +194,19 @@ impl<T> Sub for Tfm3<T> where T: Float {
     }
 }
 
-//
-// Multiplication
-//
-
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   s \mathbf{A} =
+///       \left[ \begin{array}{c|c|c}
+///           s \mathbf{a_0} &
+///           s \mathbf{a_1} &
+///           s \mathbf{a_2}
+///       \end{array} \right], \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Mul<T> for Mat3<T> where T: Float {
     type Output = Mat3<T>;
     fn mul(self, s: T) -> Mat3<T> {
@@ -98,6 +216,20 @@ impl<T> Mul<T> for Mat3<T> where T: Float {
     }
 }
 
+/// Multiplication by vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{v}
+///       = \left[ \begin{array}{c|c|c}
+///             \mathbf{a_0} &
+///             \mathbf{a_1} &
+///             \mathbf{a_2}
+///         \end{array} \right]
+///         \begin{bmatrix} v_x \\ v_y \\ v_z \end{bmatrix}
+///       = v_x \mathbf{a_0} + v_y \mathbf{a_1} + v_z \mathbf{a_2}
+/// $$</div>
 impl<T> Mul<Vec3<T>> for Mat3<T> where T: Float {
     type Output = Vec3<T>;
     fn mul(self, v: Vec3<T>) -> Vec3<T> {
@@ -108,6 +240,18 @@ impl<T> Mul<Vec3<T>> for Mat3<T> where T: Float {
     }
 }
 
+/// Multiplication by position
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{p}
+///       = \left[ \begin{array}{c|c|c}
+///             \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2}
+///         \end{array} \right]
+///         \begin{bmatrix} p_x \\ p_y \\ p_z \end{bmatrix}
+///       = p_x \mathbf{a_0} + p_y \mathbf{a_1} + p_z \mathbf{a_2}
+/// $$</div>
 impl<T: Float> Mul<Pos3<T>> for Mat3<T> {
     type Output = Pos3<T>;
     fn mul(self, p: Pos3<T>) -> Pos3<T> {
@@ -116,6 +260,24 @@ impl<T: Float> Mul<Pos3<T>> for Mat3<T> {
     }
 }
 
+/// Multiplication by matrix
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{B}
+///       = \left[ \begin{array}{c|c|c}
+///             \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2}
+///         \end{array} \right]
+///         \left[ \begin{array}{c|c|c}
+///             \mathbf{b_0} & \mathbf{b_1} & \mathbf{b_2}
+///         \end{array} \right]
+///       = \left[ \begin{array}{c|c|c}
+///             \mathbf{A} \mathbf{b_0} &
+///             \mathbf{A} \mathbf{b_1} &
+///             \mathbf{A} \mathbf{b_2}
+///         \end{array} \right]
+/// $$</div>
 impl<T> Mul for Mat3<T> where T: Float {
     type Output = Mat3<T>;
     fn mul(self, other: Mat3<T>) -> Mat3<T> {
@@ -126,6 +288,20 @@ impl<T> Mul for Mat3<T> where T: Float {
     }
 }
 
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   s \mathbf{A} =
+///       \left[ \begin{array}{c|c|c|c}
+///           s \mathbf{a_0} &
+///           s \mathbf{a_1} &
+///           s \mathbf{a_2} &
+///           s \mathbf{a_3}
+///       \end{array} \right], \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Mul<T> for Mat4<T> where T: Float {
     type Output = Mat4<T>;
     fn mul(self, s: T) -> Mat4<T> {
@@ -136,6 +312,18 @@ impl<T> Mul<T> for Mat4<T> where T: Float {
     }
 }
 
+/// Multiplication by vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{v}
+///       = \left[ \begin{array}{c|c|c|c}
+///             \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2} & \mathbf{a_3}
+///         \end{array} \right]
+///         \begin{bmatrix} v_x \\ v_y \\ v_z \\ v_w \end{bmatrix}
+///       = v_x \mathbf{a_0} + v_y \mathbf{a_1} + v_z \mathbf{a_2} + v_w \mathbf{a_3}
+/// $$</div>
 impl<T> Mul<Vec4<T>> for Mat4<T> where T: Float {
     type Output = Vec4<T>;
     fn mul(self, v: Vec4<T>) -> Vec4<T> {
@@ -147,6 +335,18 @@ impl<T> Mul<Vec4<T>> for Mat4<T> where T: Float {
     }
 }
 
+/// Multiplication by position
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{p}
+///       = \left[ \begin{array}{c|c|c|c}
+///             \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2} & \mathbf{a_3}
+///         \end{array} \right]
+///         \begin{bmatrix} p_x \\ p_y \\ p_z \\ 1 \end{bmatrix}
+///       = p_x \mathbf{a_0} + p_y \mathbf{a_1} + p_z \mathbf{a_2} + \mathbf{a_3}
+/// $$</div>
 impl<T: Float> Mul<Pos3<T>> for Mat4<T> {
     type Output = Vec4<T>;
     fn mul(self, p: Pos3<T>) -> Vec4<T> {
@@ -155,6 +355,25 @@ impl<T: Float> Mul<Pos3<T>> for Mat4<T> {
     }
 }
 
+/// Multiplication by matrix
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{B}
+///       = \left[ \begin{array}{c|c|c|c}
+///             \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2} & \mathbf{a_3}
+///         \end{array} \right]
+///         \left[ \begin{array}{c|c|c|c}
+///             \mathbf{b_0} & \mathbf{b_1} & \mathbf{b_2} & \mathbf{b_3}
+///         \end{array} \right]
+///       = \left[ \begin{array}{c|c|c|c}
+///             \mathbf{A} \mathbf{b_0} &
+///             \mathbf{A} \mathbf{b_1} &
+///             \mathbf{A} \mathbf{b_2} &
+///             \mathbf{A} \mathbf{b_3}
+///         \end{array} \right]
+/// $$</div>
 impl<T> Mul for Mat4<T> where T: Float {
     type Output = Mat4<T>;
     fn mul(self, other: Mat4<T>) -> Mat4<T> {
@@ -166,6 +385,20 @@ impl<T> Mul for Mat4<T> where T: Float {
     }
 }
 
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   s \mathbf{A} =
+///       \left[ \begin{array}{c|c|c|c}
+///           s \mathbf{a_0} &
+///           s \mathbf{a_1} &
+///           s \mathbf{a_2} &
+///           s \mathbf{a_3}
+///       \end{array} \right], \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Mul<T> for Tfm3<T> where T: Float {
     type Output = Tfm3<T>;
     fn mul(self, s: T) -> Tfm3<T> {
@@ -176,6 +409,18 @@ impl<T> Mul<T> for Tfm3<T> where T: Float {
     }
 }
 
+/// Multiplication by 3-D vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{v}
+///       = \left[ \begin{array}{c|c|c|c}
+///             \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2} & \mathbf{a_3}
+///         \end{array} \right]
+///         \begin{bmatrix} v_x \\ v_y \\ v_z \\ 0 \end{bmatrix}
+///       = v_x \mathbf{a_0} + v_y \mathbf{a_1} + v_z \mathbf{a_2}
+/// $$</div>
 impl<T> Mul<Vec3<T>> for Tfm3<T> where T: Float {
     type Output = Vec3<T>;
     fn mul(self, v: Vec3<T>) -> Vec3<T> {
@@ -186,6 +431,18 @@ impl<T> Mul<Vec3<T>> for Tfm3<T> where T: Float {
     }
 }
 
+/// Multiplication by 4-D vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{v}
+///       = \left[ \begin{array}{c|c|c|c}
+///             \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2} & \mathbf{a_3}
+///         \end{array} \right]
+///         \begin{bmatrix} v_x \\ v_y \\ v_z \\ v_w \end{bmatrix}
+///       = v_x \mathbf{a_0} + v_y \mathbf{a_1} + v_z \mathbf{a_2} + v_w \mathbf{a_3}
+/// $$</div>
 impl<T> Mul<Vec4<T>> for Tfm3<T> where T: Float {
     type Output = Vec3<T>;
     fn mul(self, v: Vec4<T>) -> Vec3<T> {
@@ -197,6 +454,18 @@ impl<T> Mul<Vec4<T>> for Tfm3<T> where T: Float {
     }
 }
 
+/// Multiplication by 3-D position
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{p}
+///       = \left[ \begin{array}{c|c|c|c}
+///             \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2} & \mathbf{a_3}
+///         \end{array} \right]
+///         \begin{bmatrix} p_x \\ p_y \\ p_z \\ 1 \end{bmatrix}
+///       = p_x \mathbf{a_0} + p_y \mathbf{a_1} + p_z \mathbf{a_2} + \mathbf{a_3}
+/// $$</div>
 impl<T> Mul<Pos3<T>> for Tfm3<T> where T: Float {
     type Output = Pos3<T>;
     fn mul(self, p: Pos3<T>) -> Pos3<T> {
@@ -205,6 +474,23 @@ impl<T> Mul<Pos3<T>> for Tfm3<T> where T: Float {
     }
 }
 
+/// Composition
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{B}
+///       = \left[ \begin{array}{c|c}
+///             \mathbf{R_A} & \mathbf{t_A}
+///         \end{array} \right]
+///         \left[ \begin{array}{c|c}
+///             \mathbf{R_B} & \mathbf{t_B}
+///         \end{array} \right]
+///       = \left[ \begin{array}{c|c}
+///             \mathbf{R_A} \mathbf{R_B} &
+///             \mathbf{t_A} + \mathbf{R_A} \mathbf{t_B}
+///         \end{array} \right]
+/// $$</div>
 impl<T> Mul for Tfm3<T> where T: Float {
     type Output = Tfm3<T>;
     fn mul(self, other: Tfm3<T>) -> Tfm3<T> {
@@ -216,10 +502,18 @@ impl<T> Mul for Tfm3<T> where T: Float {
     }
 }
 
-//
-// Negation
-//
-
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{A} =
+///       \left[ \begin{array}{c|c|c}
+///           - \mathbf{a_0} &
+///           - \mathbf{a_1} &
+///           - \mathbf{a_2}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Neg for Mat3<T> where T: Float {
     type Output = Mat3<T>;
     fn neg(self) -> Mat3<T> {
@@ -227,6 +521,19 @@ impl<T> Neg for Mat3<T> where T: Float {
     }
 }
 
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{A} =
+///       \left[ \begin{array}{c|c|c|c}
+///           - \mathbf{a_0} &
+///           - \mathbf{a_1} &
+///           - \mathbf{a_2} &
+///           - \mathbf{a_3}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Neg for Mat4<T> where T: Float {
     type Output = Mat4<T>;
     fn neg(self) -> Mat4<T> {
@@ -234,6 +541,19 @@ impl<T> Neg for Mat4<T> where T: Float {
     }
 }
 
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{A} =
+///       \left[ \begin{array}{c|c|c|c}
+///           - \mathbf{a_0} &
+///           - \mathbf{a_1} &
+///           - \mathbf{a_2} &
+///           - \mathbf{a_3}
+///       \end{array} \right]
+/// $$</div>
 impl<T> Neg for Tfm3<T> where T: Float {
     type Output = Tfm3<T>;
     fn neg(self) -> Tfm3<T> {
@@ -241,12 +561,24 @@ impl<T> Neg for Tfm3<T> where T: Float {
     }
 }
 
-//
-// Transposition
-//
-
 impl<T> Mat3<T> where T: Float {
-    /// Transpose of the matrix
+    /// Transposition
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{M}^T
+    ///     = \begin{bmatrix}
+    ///           a_{0,x} & a_{1,x} & a_{2,x} \\
+    ///           a_{0,y} & a_{1,y} & a_{2,y} \\
+    ///           a_{0,z} & a_{1,z} & a_{2,z}
+    ///       \end{bmatrix}^T
+    ///     = \begin{bmatrix}
+    ///           a_{0,x} & a_{0,y} & a_{0,z} \\
+    ///           a_{1,x} & a_{1,y} & a_{1,z} \\
+    ///           a_{2,x} & a_{2,y} & a_{2,z}
+    ///       \end{bmatrix}
+    /// $$</div>
     pub fn transpose(self) -> Mat3<T> {
         let v0 = Vec3 { x: self.0.x, y: self.1.x, z: self.2.x };
         let v1 = Vec3 { x: self.0.y, y: self.1.y, z: self.2.y };
@@ -256,7 +588,25 @@ impl<T> Mat3<T> where T: Float {
 }
 
 impl<T> Mat4<T> where T: Float {
-    /// Transpose of the matrix
+    /// Transposition
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{M}^T
+    ///     = \begin{bmatrix}
+    ///           a_{0,x} & a_{1,x} & a_{2,x} & a_{3,x} \\
+    ///           a_{0,y} & a_{1,y} & a_{2,y} & a_{3,y} \\
+    ///           a_{0,z} & a_{1,z} & a_{2,z} & a_{3,z} \\
+    ///           a_{0,w} & a_{1,w} & a_{2,w} & a_{3,w}
+    ///       \end{bmatrix}^T
+    ///     = \begin{bmatrix}
+    ///           a_{0,x} & a_{0,y} & a_{0,z} & a_{0,w} \\
+    ///           a_{1,x} & a_{1,y} & a_{1,z} & a_{1,w} \\
+    ///           a_{2,x} & a_{2,y} & a_{2,z} & a_{2,w} \\
+    ///           a_{3,x} & a_{3,y} & a_{3,z} & a_{3,w}
+    ///       \end{bmatrix}
+    /// $$</div>
     pub fn transpose(self) -> Mat4<T> {
         let v0 = Vec4 { x: self.0.x, y: self.1.x, z: self.2.x, w: self.3.x };
         let v1 = Vec4 { x: self.0.y, y: self.1.y, z: self.2.y, w: self.3.y };
@@ -325,7 +675,15 @@ impl<T> Mat4<T> where T: Float {
 }
 
 impl<T> Tfm3<T> where T: Float {
-    /// Inverse of the matrix
+    /// Inversion
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{T}^{-1}
+    ///       = \left[ \begin{array}{c|c} \mathbf{R} & \mathbf{t} \end{array}^{-1} \right]
+    ///       = \left[ \begin{array}{c|c} \mathbf{R}^{-1} & - \mathbf{R}^{-1} \mathbf{t} \end{array} \right]
+    /// $$</div>
     pub fn inverse(self) -> Tfm3<T> {
         let m1 = Mat3(self.0, self.1, self.2);
         let m2 = m1.inverse();
@@ -378,6 +736,16 @@ impl<T> From<Mat3<T>> for Tfm3<T> where T: Float {
 
 impl<T: Float> Mat3<T> {
     /// Construct an identity matrix
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{M} = \begin{bmatrix}
+    ///                    1 & 0 & 0 \\
+    ///                    0 & 1 & 0 \\
+    ///                    0 & 0 & 1
+    ///                \end{bmatrix}
+    /// $$</div>
     pub fn identity() -> Mat3<T> {
         Mat3(Vec3 { x: T::one(), y: T::zero(), z: T::zero() },
              Vec3 { x: T::zero(), y: T::one(), z: T::zero() },
@@ -397,6 +765,17 @@ impl<T: Float> Mat3<T> {
 
 impl<T: Float> Mat4<T> {
     /// Construct an identity matrix
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{M} = \begin{bmatrix}
+    ///                    1 & 0 & 0 & 0 \\
+    ///                    0 & 1 & 0 & 0 \\
+    ///                    0 & 0 & 1 & 0 \\
+    ///                    0 & 0 & 0 & 1
+    ///                \end{bmatrix}
+    /// $$</div>
     pub fn identity() -> Mat4<T> {
         Mat4(Vec4 { x: T::one(), y: T::zero(), z: T::zero(), w: T::zero() },
              Vec4 { x: T::zero(), y: T::one(), z: T::zero(), w: T::zero() },
@@ -407,6 +786,16 @@ impl<T: Float> Mat4<T> {
 
 impl<T: Float> Tfm3<T> {
     /// Construct an identity matrix
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{T} = \begin{bmatrix}
+    ///                    1 & 0 & 0 & 0 \\
+    ///                    0 & 1 & 0 & 0 \\
+    ///                    0 & 0 & 1 & 0
+    ///                \end{bmatrix}
+    /// $$</div>
     pub fn identity() -> Tfm3<T> {
         Tfm3(Vec3 { x: T::one(), y: T::zero(), z: T::zero() },
              Vec3 { x: T::zero(), y: T::one(), z: T::zero() },

@@ -7,6 +7,13 @@ use std::ops::{Add, Sub, Mul, Div, Neg};
 use std::convert::From;
 
 /// 3-D Vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v} = x \mathbf{i} + y \mathbf{j} + z \mathbf{k}
+///              = \begin{bmatrix} x \\ y \\ z  \end{bmatrix}
+/// $$</div>
 #[derive(Debug, Copy, Clone)]
 pub struct Vec3<T> {
     /// 1st component
@@ -18,6 +25,13 @@ pub struct Vec3<T> {
 }
 
 /// 3-D Position
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p} = x \mathbf{i} + y \mathbf{j} + z \mathbf{k}
+///              = \begin{bmatrix} x \\ y \\ z \end{bmatrix}
+/// $$</div>
 #[derive(Debug, Copy, Clone)]
 pub struct Pos3<T> {
     /// 1st component
@@ -29,6 +43,12 @@ pub struct Pos3<T> {
 }
 
 /// 4-D Vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v} = \begin{bmatrix} x \\ y \\ z \\ w \end{bmatrix}
+/// $$</div>
 #[derive(Debug, Copy, Clone)]
 pub struct Vec4<T> {
     /// 1st component
@@ -41,10 +61,13 @@ pub struct Vec4<T> {
     pub w: T
 }
 
-//
-// Addition
-//
-
+/// Addition
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v}_1 + \mathbf{v}_2 = (x_1 + x_2) \mathbf{i} + (y_1 + y_2) \mathbf{j} + (z_1 + z_2) \mathbf{k}
+/// $$</div>
 impl<T> Add for Vec3<T> where T: Float {
     type Output = Vec3<T>;
     fn add(self, _rhs: Vec3<T>) -> Vec3<T> {
@@ -54,6 +77,13 @@ impl<T> Add for Vec3<T> where T: Float {
     }
 }
 
+/// Addition
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v}_1 + \mathbf{v}_2 = \begin{bmatrix} x_1 + x_2 \\ y_1 + y_2 \\ z_1 + z_2 \\ w_1 + w_2 \end{bmatrix}
+/// $$</div>
 impl<T> Add for Vec4<T> where T: Float {
     type Output = Vec4<T>;
     fn add(self, _rhs: Vec4<T>) -> Vec4<T> {
@@ -64,6 +94,13 @@ impl<T> Add for Vec4<T> where T: Float {
     }
 }
 
+/// Point Movement
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p} + \mathbf{v} = (x_p + x_v) \mathbf{i} + (y_p + y_v) \mathbf{j} + (z_p + z_v) \mathbf{k}
+/// $$</div>
 impl<T> Add<Vec3<T>> for Pos3<T> where T: Float {
     type Output = Pos3<T>;
     fn add(self, _rhs: Vec3<T>) -> Pos3<T> {
@@ -73,10 +110,13 @@ impl<T> Add<Vec3<T>> for Pos3<T> where T: Float {
     }
 }
 
-//
-// Subtraction
-//
-
+/// Subtraction
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v}_1 - \mathbf{v}_2 = (x_1 - x_2) \mathbf{i} + (y_1 - y_2) \mathbf{j} + (z_1 - z_2) \mathbf{k}
+/// $$</div>
 impl<T> Sub for Vec3<T> where T: Float {
     type Output = Vec3<T>;
     fn sub(self, _rhs: Vec3<T>) -> Vec3<T> {
@@ -86,6 +126,13 @@ impl<T> Sub for Vec3<T> where T: Float {
     }
 }
 
+/// Subtraction
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v}_1 - \mathbf{v}_2 = \begin{bmatrix} x_1 - x_2 \\ y_1 - y_2 \\ z_1 - z_2 \\ w_1 - w_2 \end{bmatrix}
+/// $$</div>
 impl<T> Sub for Vec4<T> where T: Float {
     type Output = Vec4<T>;
     fn sub(self, _rhs: Vec4<T>) -> Vec4<T> {
@@ -96,6 +143,13 @@ impl<T> Sub for Vec4<T> where T: Float {
     }
 }
 
+/// Point Movement
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p} - \mathbf{v} = (x_p - x_v) \mathbf{i} + (y_p - y_v) \mathbf{j} + (z_p - z_v) \mathbf{k}
+/// $$</div>
 impl<T> Sub<Vec3<T>> for Pos3<T> where T: Float {
     type Output = Pos3<T>;
     fn sub(self, _rhs: Vec3<T>) -> Pos3<T> {
@@ -105,6 +159,15 @@ impl<T> Sub<Vec3<T>> for Pos3<T> where T: Float {
     }
 }
 
+/// Point Difference
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p}_1 - \mathbf{p}_2
+///       = \Delta \mathbf{p}
+///       = (x_1 - x_2) \mathbf{i} + (y_1 - y_2) \mathbf{j} + (z_1 - z_2) \mathbf{k}
+/// $$</div>
 impl<T> Sub for Pos3<T> where T: Float {
     type Output = Vec3<T>;
     fn sub(self, _rhs: Pos3<T>) -> Vec3<T> {
@@ -114,10 +177,14 @@ impl<T> Sub for Pos3<T> where T: Float {
     }
 }
 
-//
-// Multiplication
-//
-
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v} \cdot s = (s x) \mathbf{i} + (s y) \mathbf{j} + (s z) \mathbf{k}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Mul<T> for Vec3<T> where T: Float {
     type Output = Vec3<T>;
     fn mul(self, s: T) -> Vec3<T> {
@@ -127,6 +194,14 @@ impl<T> Mul<T> for Vec3<T> where T: Float {
     }
 }
 
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v} \cdot s = \begin{bmatrix} s x \\ s y \\ s z \\ s w \end{bmatrix}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Mul<T> for Vec4<T> where T: Float {
     type Output = Vec4<T>;
     fn mul(self, s: T) -> Vec4<T> {
@@ -137,6 +212,14 @@ impl<T> Mul<T> for Vec4<T> where T: Float {
     }
 }
 
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p} \cdot s = (s x) \mathbf{i} + (s y) \mathbf{j} + (s z) \mathbf{k}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Mul<T> for Pos3<T> where T: Float {
     type Output = Pos3<T>;
     fn mul(self, s: T) -> Pos3<T> {
@@ -146,10 +229,14 @@ impl<T> Mul<T> for Pos3<T> where T: Float {
     }
 }
 
-//
-// Division
-//
-
+/// Division by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \frac{\mathbf{v}}{s} = \frac{x}{s} \mathbf{i} + \frac{y}{s} \mathbf{j} + \frac{z}{s} \mathbf{k}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Div<T> for Vec3<T> where T: Float {
     type Output = Vec3<T>;
     fn div(self, s: T) -> Vec3<T> {
@@ -159,6 +246,14 @@ impl<T> Div<T> for Vec3<T> where T: Float {
     }
 }
 
+/// Division by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \frac{\mathbf{v}}{s} = \begin{bmatrix} \frac{x}{s} \\ \frac{y}{s} \\ \frac{z}{s} \\ \frac{w}{s} \end{bmatrix}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Div<T> for Vec4<T> where T: Float {
     type Output = Vec4<T>;
     fn div(self, s: T) -> Vec4<T> {
@@ -169,6 +264,14 @@ impl<T> Div<T> for Vec4<T> where T: Float {
     }
 }
 
+/// Division by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \frac{\mathbf{p}}{s} = \frac{x}{s} \mathbf{i} + \frac{y}{s} \mathbf{j} + \frac{z}{s} \mathbf{k}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Div<T> for Pos3<T> where T: Float {
     type Output = Pos3<T>;
     fn div(self, s: T) -> Pos3<T> {
@@ -178,10 +281,13 @@ impl<T> Div<T> for Pos3<T> where T: Float {
     }
 }
 
-//
-// Negation
-//
-
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{v} = (-x) \mathbf{i} + (-y) \mathbf{j} + (-z) \mathbf{k}
+/// $$</div>
 impl<T> Neg for Vec3<T> where T: Float {
     type Output = Vec3<T>;
     fn neg(self) -> Vec3<T> {
@@ -189,6 +295,13 @@ impl<T> Neg for Vec3<T> where T: Float {
     }
 }
 
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{v} = \begin{bmatrix} -x \\ -y \\ -z \\ -w \end{bmatrix}
+/// $$</div>
 impl<T> Neg for Vec4<T> where T: Float {
     type Output = Vec4<T>;
     fn neg(self) -> Vec4<T> {
@@ -196,6 +309,13 @@ impl<T> Neg for Vec4<T> where T: Float {
     }
 }
 
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{v} = (-x) \mathbf{i} + (-y) \mathbf{j} + (-z) \mathbf{k}
+/// $$</div>
 impl<T> Neg for Pos3<T> where T: Float {
     type Output = Pos3<T>;
     fn neg(self) -> Pos3<T> {
@@ -209,6 +329,15 @@ impl<T> Neg for Pos3<T> where T: Float {
 
 impl<T: Float> Vec3<T> {
     /// Dot Product
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    /// \mathbf{a} \cdot \mathbf{b} =
+    ///   \begin{bmatrix} a_x & a_y & a_z \end{bmatrix}
+    ///   \begin{bmatrix} b_x \\ b_y \\ b_z \end{bmatrix}
+    ///   = a_x b_x + a_y b_y + a_z b_z
+    /// $$</div>
     pub fn dot(self, rhs: Self) -> T {
         let mx = self.x * rhs.x;
         let my = self.y * rhs.y;
@@ -217,6 +346,20 @@ impl<T: Float> Vec3<T> {
     }
 
     /// Cross Product
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    /// \mathbf{a} \times \mathbf{b} =
+    ///   \begin{vmatrix}
+    ///     \mathbf{i} && \mathbf{j} && \mathbf{k} \\
+    ///     a_x && a_y && a_z \\
+    ///     b_x && b_y && b_z
+    ///   \end{vmatrix}
+    ///   = (a_y b_z - a_z b_y) \mathbf{i} +
+    ///     (a_z b_x - a_x b_z) \mathbf{j} +
+    ///     (a_x b_y - a_y b_x) \mathbf{k}
+    /// $$</div>
     pub fn cross(self, rhs: Self) -> Self {
         let tx = self.y * rhs.z - self.z * rhs.y;
         let ty = self.z * rhs.x - self.x * rhs.z;
@@ -225,21 +368,47 @@ impl<T: Float> Vec3<T> {
     }
 
     /// Magnitude
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   |\mathbf{v}| = \sqrt{\mathbf{v} \cdot \mathbf{v}}
+    /// $$</div>
     pub fn length(self) -> T {
         self.length_squared().sqrt()
     }
 
     /// Squared Magnitude
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   |\mathbf{v}|^2 = \mathbf{v} \cdot \mathbf{v}
+    /// $$</div>
     pub fn length_squared(self) -> T {
         self.dot(self)
     }
 
     /// Normalization
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \hat{\mathbf{v}} = \frac{\mathbf{v}}{|\mathbf{v}|}
+    /// $$</div>
     pub fn normalize(self) -> Vec3<T> {
         self * self.length_squared().rsqrt()
     }
 
     /// Linear Interpolation
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \mathrm{lerp}(\mathbf{v}_0, \mathbf{v}_1; t)
+    ///              = \mathbf{v}_0 + t (\mathbf{v}_1 - \mathbf{v}_0), \\
+    ///   \textrm{where } t \in \mathbb{R}
+    /// $$</div>
     pub fn lerp(self, dest: Vec3<T>, t: T) -> Vec3<T> {
         self + (dest - self) * t
     }
@@ -247,6 +416,15 @@ impl<T: Float> Vec3<T> {
 
 impl<T: Float> Vec4<T> {
     /// Dot Product
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    /// \mathbf{a} \cdot \mathbf{b} =
+    ///   \begin{bmatrix} a_x & a_y & a_z & a_w \end{bmatrix}
+    ///   \begin{bmatrix} b_x \\ b_y \\ b_z \\ b_w \end{bmatrix}
+    ///   = a_x b_x + a_y b_y + a_z b_z + a_w b_w
+    /// $$</div>
     pub fn dot(self, rhs: Self) -> T {
         let mx = self.x * rhs.x;
         let my = self.y * rhs.y;
@@ -256,21 +434,47 @@ impl<T: Float> Vec4<T> {
     }
 
     /// Magnitude
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   |\mathbf{v}| = \sqrt{\mathbf{v} \cdot \mathbf{v}}
+    /// $$</div>
     pub fn length(self) -> T {
         self.length_squared().sqrt()
     }
 
     /// Squared Magnitude
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   |\mathbf{v}|^2 = \mathbf{v} \cdot \mathbf{v}
+    /// $$</div>
     pub fn length_squared(self) -> T {
         self.dot(self)
     }
 
     /// Normalization
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \hat{\mathbf{v}} = \frac{\mathbf{v}}{|\mathbf{v}|}
+    /// $$</div>
     pub fn normalize(self) -> Vec4<T> {
         self * self.length_squared().rsqrt()
     }
 
     /// Linear Interpolation
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \mathrm{lerp}(\mathbf{v}_0, \mathbf{v}_1; t)
+    ///              = \mathbf{v}_0 + t (\mathbf{v}_1 - \mathbf{v}_0), \\
+    ///   \textrm{where } t \in \mathbb{R}
+    /// $$</div>
     pub fn lerp(self, dest: Vec4<T>, t: T) -> Vec4<T> {
         self + (dest - self) * t
     }
@@ -278,15 +482,30 @@ impl<T: Float> Vec4<T> {
 
 impl<T: Float> Pos3<T> {
     /// Linear Interpolation
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{p} = \mathrm{lerp}(\mathbf{p}_0, \mathbf{p}_1; t)
+    ///              = \mathbf{p}_0 + t (\mathbf{p}_1 - \mathbf{p}_0), \\
+    ///   \textrm{where } t \in \mathbb{R}
+    /// $$</div>
     pub fn lerp(self, dest: Pos3<T>, t: T) -> Pos3<T> {
         self + (dest - self) * t
     }
 }
 
-//
-// Min
-//
-
+/// Component-wise minimum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{min}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{min}(a_x, b_x) \\
+///           \mathrm{min}(a_y, b_y) \\
+///           \mathrm{min}(a_z, b_z)
+///       \end{bmatrix}
+/// $$</div>
 impl<T: Float> Min for Vec3<T> {
     fn min(self, _rhs: Self) -> Self {
         let mx = self.x.min(_rhs.x);
@@ -296,6 +515,18 @@ impl<T: Float> Min for Vec3<T> {
     }
 }
 
+/// Component-wise minimum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{min}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{min}(a_x, b_x) \\
+///           \mathrm{min}(a_y, b_y) \\
+///           \mathrm{min}(a_z, b_z) \\
+///           \mathrm{min}(a_w, b_w)
+///       \end{bmatrix}
+/// $$</div>
 impl<T: Float> Min for Vec4<T> {
     fn min(self, _rhs: Self) -> Self {
         let mx = self.x.min(_rhs.x);
@@ -306,6 +537,17 @@ impl<T: Float> Min for Vec4<T> {
     }
 }
 
+/// Component-wise minimum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{min}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{min}(a_x, b_x) \\
+///           \mathrm{min}(a_y, b_y) \\
+///           \mathrm{min}(a_z, b_z)
+///       \end{bmatrix}
+/// $$</div>
 impl<T: Float> Min for Pos3<T> {
     fn min(self, _rhs: Self) -> Self {
         let mx = self.x.min(_rhs.x);
@@ -315,10 +557,17 @@ impl<T: Float> Min for Pos3<T> {
     }
 }
 
-//
-// Max
-//
-
+/// Component-wise maximum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{max}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{max}(a_x, b_x) \\
+///           \mathrm{max}(a_y, b_y) \\
+///           \mathrm{max}(a_z, b_z)
+///       \end{bmatrix}
+/// $$</div>
 impl<T: Float> Max for Vec3<T> {
     fn max(self, _rhs: Self) -> Self {
         let mx = self.x.max(_rhs.x);
@@ -328,6 +577,18 @@ impl<T: Float> Max for Vec3<T> {
     }
 }
 
+/// Component-wise maximum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{max}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{max}(a_x, b_x) \\
+///           \mathrm{max}(a_y, b_y) \\
+///           \mathrm{max}(a_z, b_z) \\
+///           \mathrm{max}(a_w, b_w)
+///       \end{bmatrix}
+/// $$</div>
 impl<T: Float> Max for Vec4<T> {
     fn max(self, _rhs: Self) -> Self {
         let mx = self.x.max(_rhs.x);
@@ -338,6 +599,17 @@ impl<T: Float> Max for Vec4<T> {
     }
 }
 
+/// Component-wise maximum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{max}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{max}(a_x, b_x) \\
+///           \mathrm{max}(a_y, b_y) \\
+///           \mathrm{max}(a_z, b_z)
+///       \end{bmatrix}
+/// $$</div>
 impl<T: Float> Max for Pos3<T> {
     fn max(self, _rhs: Self) -> Self {
         let mx = self.x.max(_rhs.x);
@@ -347,40 +619,60 @@ impl<T: Float> Max for Pos3<T> {
     }
 }
 
-//
-// Conversion
-//
-
+/// Cast from 3-D Position to 3-D Vector
 impl<T> From<Pos3<T>> for Vec3<T> {
     fn from(p: Pos3<T>) -> Vec3<T> {
         Vec3 { x: p.x, y: p.y, z: p.z }
     }
 }
 
+/// Cast from 4-D Vector to 3-D Vector
 impl<T> From<Vec4<T>> for Vec3<T> {
     fn from(v: Vec4<T>) -> Vec3<T> {
         Vec3 { x: v.x, y: v.y, z: v.z }
     }
 }
 
+/// Cast from 3-D Vector to 4-D Vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v} = \begin{bmatrix} x \\ y \\ z \\ 0 \end{bmatrix}
+/// $$</div>
 impl<T> From<Vec3<T>> for Vec4<T> where T: Float {
     fn from(v: Vec3<T>) -> Vec4<T> {
         Vec4 { x: v.x, y: v.y, z: v.z, w: T::zero() }
     }
 }
 
+/// Cast from 3-D Position to 4-D Vector
+///
+/// ## Definition
+///
+/// <div>$$
+///   \mathbf{v} = \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix}
+/// $$</div>
 impl<T> From<Pos3<T>> for Vec4<T> where T: Float {
     fn from(p: Pos3<T>) -> Vec4<T> {
         Vec4 { x: p.x, y: p.y, z: p.z, w: T::one() }
     }
 }
 
+/// Cast from 3-D Vector to 3-D Position
 impl<T> From<Vec3<T>> for Pos3<T> {
     fn from(v: Vec3<T>) -> Pos3<T> {
         Pos3 { x: v.x, y: v.y, z: v.z }
     }
 }
 
+/// Project from 4-D Vector to 3-D Position
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p} = \frac{ x \mathbf{i} + y \mathbf{j} + z \mathbf{k} }{ w }
+/// $$</div>
 impl<T> From<Vec4<T>> for Pos3<T> where T: Float {
     fn from(v: Vec4<T>) -> Pos3<T> {
         Pos3 { x: v.x / v.w, y: v.y / v.w, z: v.z / v.w }
@@ -393,30 +685,77 @@ impl<T> From<Vec4<T>> for Pos3<T> where T: Float {
 
 impl<T: Float> Vec3<T> {
     /// X Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
+    /// $$</div>
     pub fn x_axis() -> Vec3<T> { Vec3{ x: T::one(), y: T::zero(), z: T::zero() } }
+
     /// Y Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+    /// $$</div>
     pub fn y_axis() -> Vec3<T> { Vec3{ x: T::zero(), y: T::one(), z: T::zero() } }
+
     /// Z Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+    /// $$</div>
     pub fn z_axis() -> Vec3<T> { Vec3{ x: T::zero(), y: T::zero(), z: T::one() } }
 }
 
 impl<T: Float> Vec4<T> {
     /// X Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}
+    /// $$</div>
     pub fn x_axis() -> Vec4<T> { Vec4{ x: T::one(), y: T::zero(), z: T::zero(), w: T::zero() } }
+
     /// Y Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \end{bmatrix}
+    /// $$</div>
     pub fn y_axis() -> Vec4<T> { Vec4{ x: T::zero(), y: T::one(), z: T::zero(), w: T::zero() } }
+
     /// Z Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}
+    /// $$</div>
     pub fn z_axis() -> Vec4<T> { Vec4{ x: T::zero(), y: T::zero(), z: T::one(), w: T::zero() } }
+
     /// W Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}
+    /// $$</div>
     pub fn w_axis() -> Vec4<T> { Vec4{ x: T::zero(), y: T::zero(), z: T::zero(), w: T::one() } }
 }
 
 impl<T: Float> Pos3<T> {
     /// X Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
+    /// $$</div>
     pub fn x_axis() -> Pos3<T> { Pos3{ x: T::one(), y: T::zero(), z: T::zero() } }
+
     /// Y Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+    /// $$</div>
     pub fn y_axis() -> Pos3<T> { Pos3{ x: T::zero(), y: T::one(), z: T::zero() } }
+
     /// Z Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+    /// $$</div>
     pub fn z_axis() -> Pos3<T> { Pos3{ x: T::zero(), y: T::zero(), z: T::one() } }
 }
 

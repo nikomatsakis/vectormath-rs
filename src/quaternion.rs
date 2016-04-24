@@ -5,14 +5,28 @@ use float::{Float, Sel};
 use vector::Vec3;
 use matrix::Mat3;
 use angle::Rad;
-use std::ops::{Add, Sub, Mul, Neg, Not};
+use std::ops::{Add, Sub, Mul, Neg};
 use std::convert::From;
 
 /// Quaternion
 ///
 /// # Definition
 ///
-/// $$ \mathbb{Q} = w + x \mathbf{i} + y \mathbf{j} + z \mathbf{k} $$
+/// <div>$$
+///   \mathbf{q} = w + x \mathbf{i} + y \mathbf{j} + z \mathbf{k}
+///              = w + \mathbf{v}, \\
+///   \textrm{where } w \in \mathbb{R}, \mathbf{v} \in \mathbb{R}^3 \\
+/// $$</div>
+///
+/// # Basis
+///
+/// <div>$$
+///   \mathbf{i}^2 = \mathbf{j}^2 = \mathbf{k}^2 = \mathbf{i} \mathbf{j} \mathbf{k} = -1, \\
+///   \textrm{where } \mathbf{i}, \mathbf{j}, \mathbf{k} \textrm{ are basis elements}
+/// $$</div>
+///
+/// # Set
+/// $$ \textrm{the set of } \mathbf{q} \textrm{ is denoted } \mathbb{H} $$
 #[derive(Debug, Copy, Clone)]
 pub struct Quat<T> {
     /// real part (scalar part)
@@ -25,10 +39,13 @@ pub struct Quat<T> {
     pub z: T
 }
 
-//
-// Addition
-//
-
+/// Addition
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{q}_1 + \mathbf{q}_2 = (w_1 + w_2) + (x_1 + x_2) \mathbf{i} + (y_1 + y_2) \mathbf{j} + (z_1 + z_2) \mathbf{k}
+/// $$</div>
 impl<T> Add for Quat<T> where T: Float {
     type Output = Quat<T>;
     fn add(self, _rhs: Quat<T>) -> Quat<T> {
@@ -39,10 +56,13 @@ impl<T> Add for Quat<T> where T: Float {
     }
 }
 
-//
-// Subtraction
-//
-
+/// Subtraction
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{q}_1 - \mathbf{q}_2 = (w_1 - w_2) + (x_1 - x_2) \mathbf{i} + (y_1 - y_2) \mathbf{j} + (z_1 - z_2) \mathbf{k}
+/// $$</div>
 impl<T> Sub for Quat<T> where T: Float {
     type Output = Quat<T>;
     fn sub(self, _rhs: Quat<T>) -> Quat<T> {
@@ -53,10 +73,14 @@ impl<T> Sub for Quat<T> where T: Float {
     }
 }
 
-//
-// Multiplication
-//
-
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{q} \cdot s = (s w) + (s x) \mathbf{i} + (s y) \mathbf{j} + (s z) \mathbf{k}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
 impl<T> Mul<T> for Quat<T> where T: Float {
     type Output = Quat<T>;
     fn mul(self, s: T) -> Quat<T> {
@@ -67,6 +91,13 @@ impl<T> Mul<T> for Quat<T> where T: Float {
     }
 }
 
+/// Multiplication by quaternion
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{q_1} \mathbf{q_2} = (w_1 w_2 - \mathbf{v}_1 \cdot \mathbf{v}_2) + (w_1 \mathbf{v}_2 + w_2 \mathbf{v}_1 + \mathbf{v_1} \times \mathbf{v_2})
+/// $$</div>
 impl<T> Mul<Quat<T>> for Quat<T> where T: Float {
     type Output = Quat<T>;
     fn mul(self, q: Quat<T>) -> Quat<T> {
@@ -81,10 +112,13 @@ impl<T> Mul<Quat<T>> for Quat<T> where T: Float {
     }
 }
 
-//
-// Negation
-//
-
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{q} = (-w) + (-x) \mathbf{i} + (-y) \mathbf{j} + (-z) \mathbf{k}
+/// $$</div>
 impl<T> Neg for Quat<T> where T: Float {
     type Output = Quat<T>;
     fn neg(self) -> Quat<T> {
@@ -93,37 +127,57 @@ impl<T> Neg for Quat<T> where T: Float {
 }
 
 //
-// Conjugate
-//
-
-impl<T> Not for Quat<T> where T: Float {
-    type Output = Quat<T>;
-    /// Conjugate
-    fn not(self) -> Quat<T> {
-        Quat { w: self.w, x: -self.x, y: -self.y, z: -self.z }
-    }
-}
-
-//
 // Functions
 //
 impl<T: Float> Quat<T> {
+    /// Conjugate
+    ///
+    /// # Definition
+    /// <div>$$
+    ///   \mathbf{q}^\ast = w - x \mathbf{i} - y \mathbf{j} - z \mathbf{k}
+    /// $$</div>
+    pub fn conj(self) -> Quat<T> {
+        Quat { w: self.w, x: -self.x, y: -self.y, z: -self.z }
+    }
+
     /// Magnitude
+    ///
+    /// # Definition
+    /// <div>$$
+    ///   |\mathbf{q}| = \sqrt{\mathbf{q} \mathbf{q}^\ast}
+    /// $$</div>
     pub fn norm(self) -> T {
         self.norm_squared().sqrt()
     }
 
     /// Squared Magnitude
+    ///
+    /// # Definition
+    /// <div>$$
+    ///   |\mathbf{q}|^2 = \mathbf{q} \mathbf{q}^\ast
+    ///                  = w^2 + \mathbf{v} \cdot \mathbf{v}
+    ///                  = w^2 + x^2 + y^2 + z^2
+    /// $$</div>
     pub fn norm_squared(self) -> T {
         self.dot(self)
     }
 
     /// Normalize
+    ///
+    /// # Definition
+    /// <div>$$
+    ///   \hat{\mathbf{q}} = \frac{\mathbf{q}}{|\mathbf{q}|}
+    /// $$</div>
     pub fn normalize(self) -> Quat<T> {
         self * self.norm_squared().rsqrt()
     }
 
     /// Dot Product
+    ///
+    /// # Definition
+    /// <div>$$
+    ///   \mathbf{q}_1 \cdot \mathbf{q}_2 = w_1 w_2 + \mathbf{v}_1 \cdot \mathbf{v}_2
+    /// $$</div>
     pub fn dot(self, rhs: Quat<T>) -> T {
         let mw = self.w * rhs.w;
         let mx = self.x * rhs.x;
@@ -133,6 +187,13 @@ impl<T: Float> Quat<T> {
     }
 
     /// Transform a vector with the quaternion
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{p}' = \mathbf{q} \mathbf{p} \mathbf{q}^{-1}, \\
+    ///   \textrm{where } \mathbf{p} = 0 + x \mathbf{i} + y \mathbf{j} + z \mathbf{k}
+    /// $$</div>
     pub fn rotate(self, v: Vec3<T>) -> Vec3<T> {
         // let p = (xyz=v, w=0)
         // p' = q * p * inv(q)
@@ -152,11 +213,32 @@ impl<T: Float> Quat<T> {
     }
 
     /// linear interpolation
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{q} = \mathrm{lerp}(\mathbf{q}_0, \mathbf{q}_1; t)
+    ///              = \mathbf{q}_0 + t (\mathbf{q}_1 - \mathbf{q}_0), \\
+    ///   \textrm{where } t \in \mathbb{R}
+    /// $$</div>
     pub fn lerp(self, dest: Quat<T>, t: T) -> Quat<T> {
         self + (dest - self) * t
     }
 
     /// spherical linear interpolation
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{q} = \mathrm{slerp}(\mathbf{q}_0, \mathbf{q}_1; t)
+    ///              = \frac{ \mathbf{q}_0 \sin ((1 - t) \phi) + \mathbf{q}_1 \sin (t \phi) }{ \sin \phi }, \\
+    ///   \textrm{where } \cos \phi = \cos \frac{\theta}{2} = w_0 w_1 + x_0 x_1 + y_0 y_1 + z_0 z_1
+    /// $$</div>
+    ///
+    /// # See Also
+    ///
+    /// - [Martin Baker](http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/)
+    ///
     pub fn slerp(self, dest: Quat<T>, t: T) -> Quat<T> {
         let cos_ht = self.dot(dest); // cos(theta/2)
 
@@ -306,7 +388,7 @@ impl<T: Float> Quat<T> {
 #[cfg(test)]
 mod tests_checktype {
     use super::*;
-    use std::ops::{Add, Sub, Mul, Neg, Not};
+    use std::ops::{Add, Sub, Mul, Neg};
 
     impl TQuat<f32> for Quat<f32> {}
     impl TQuat<f64> for Quat<f64> {}
@@ -318,7 +400,6 @@ mod tests_checktype {
         + Mul<T, Output = Self>
         + Mul<Self, Output = Self>
         + Neg<Output = Self>
-        + Not<Output = Self>
     {
     }
 }
@@ -383,7 +464,7 @@ mod tests_quat {
     #[test]
     fn test_conj() {
         let a = Quat { x: 1.0, y: 2.0, z: 3.0, w: 4.0 };
-        let b = !a;
+        let b = a.conj();
         assert_eq!(b.w, 4.0);
         assert_eq!(b.x, -1.0);
         assert_eq!(b.y, -2.0);
