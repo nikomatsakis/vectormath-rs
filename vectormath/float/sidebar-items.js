@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Clamp","Trait of Clamp"],["Cmp","Comparison"],["Float","Floating-point type trait"],["Max","Trait of Maximum"],["Min","Trait of Minimum"],["Ops","Trait of Operations"],["Sel","Selection"],["Trig","Trait of Trigonometry"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Mat3","3x3 Column-major Matrix"],["Mat4","4x4 Column-major Matrix"],["Tfm3","3-D Affine Transform Matrix"]]});

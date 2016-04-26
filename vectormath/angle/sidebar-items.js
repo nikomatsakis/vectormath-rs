@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Deg","Angle in degrees"],["Rad","Angle in radians"]]});

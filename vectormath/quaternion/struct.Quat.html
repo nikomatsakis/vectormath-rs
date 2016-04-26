@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Quat` struct in crate `vectormath`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Quat">
+
+    <title>vectormath::quaternion::Quat - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>vectormath</a>::<wbr><a href='index.html'>quaternion</a></p><script>window.sidebarCurrent = {name: 'Quat', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>vectormath</a>::<wbr><a href='index.html'>quaternion</a>::<wbr><a class='struct' href=''>Quat</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-913' class='srclink' href='../../src/vectormath/src/quaternion.rs.html#31-40' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Quat&lt;T&gt; {
+    pub w: T,
+    pub x: T,
+    pub y: T,
+    pub z: T,
+}</pre><div class='docblock'><p>Quaternion</p>
+
+<h1 id='definition' class='section-header'><a href='#definition'>Definition</a></h1>
+<div>$$
+  \mathbf{q} = w + x \mathbf{i} + y \mathbf{j} + z \mathbf{k}
+             = w + \mathbf{v}, \\
+  \textrm{where } w \in \mathbb{R}, \mathbf{v} \in \mathbb{R}^3 \\
+$$</div>
+
+<h1 id='basis' class='section-header'><a href='#basis'>Basis</a></h1>
+<div>$$
+  \mathbf{i}^2 = \mathbf{j}^2 = \mathbf{k}^2 = \mathbf{i} \mathbf{j} \mathbf{k} = -1, \\
+  \textrm{where } \mathbf{i}, \mathbf{j}, \mathbf{k} \textrm{ are basis elements}
+$$</div>
+
+<h1 id='set' class='section-header'><a href='#set'>Set</a></h1>
+<p>$$ \textrm{the set of } \mathbf{q} \textrm{ is denoted } \mathbb{H} $$</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                             <td id='structfield.w'><code>w</code></td><td><div class='docblock'><p>real part (scalar part)</p>
+</div></td></tr><tr class='stab '>
+                             <td id='structfield.x'><code>x</code></td><td><div class='docblock'><p>1st imaginary part (x of vector part)</p>
+</div></td></tr><tr class='stab '>
+                             <td id='structfield.y'><code>y</code></td><td><div class='docblock'><p>2nd imaginary part (y of vector part)</p>
+</div></td></tr><tr class='stab '>
+                             <td id='structfield.z'><code>z</code></td><td><div class='docblock'><p>3rd imaginary part (z of vector part)</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a>&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.conj' class='method'><code>fn <a href='#method.conj' class='fnname'>conj</a>(self) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Conjugate</p>
+
+<h1 id='definition-1' class='section-header'><a href='#definition-1'>Definition</a></h1>
+<div>$$
+  \mathbf{q}^\ast = w - x \mathbf{i} - y \mathbf{j} - z \mathbf{k}
+$$</div>
+</div><h4 id='method.norm' class='method'><code>fn <a href='#method.norm' class='fnname'>norm</a>(self) -&gt; T</code></h4>
+<div class='docblock'><p>Magnitude</p>
+
+<h1 id='definition-2' class='section-header'><a href='#definition-2'>Definition</a></h1>
+<div>$$
+  |\mathbf{q}| = \sqrt{\mathbf{q} \mathbf{q}^\ast}
+$$</div>
+</div><h4 id='method.norm_squared' class='method'><code>fn <a href='#method.norm_squared' class='fnname'>norm_squared</a>(self) -&gt; T</code></h4>
+<div class='docblock'><p>Squared Magnitude</p>
+
+<h1 id='definition-3' class='section-header'><a href='#definition-3'>Definition</a></h1>
+<div>$$
+  |\mathbf{q}|^2 = \mathbf{q} \mathbf{q}^\ast
+                 = w^2 + \mathbf{v} \cdot \mathbf{v}
+                 = w^2 + x^2 + y^2 + z^2
+$$</div>
+</div><h4 id='method.normalize' class='method'><code>fn <a href='#method.normalize' class='fnname'>normalize</a>(self) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Normalize</p>
+
+<h1 id='definition-4' class='section-header'><a href='#definition-4'>Definition</a></h1>
+<div>$$
+  \hat{\mathbf{q}} = \frac{\mathbf{q}}{|\mathbf{q}|}
+$$</div>
+</div><h4 id='method.dot' class='method'><code>fn <a href='#method.dot' class='fnname'>dot</a>(self, rhs: <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;) -&gt; T</code></h4>
+<div class='docblock'><p>Dot Product</p>
+
+<h1 id='definition-5' class='section-header'><a href='#definition-5'>Definition</a></h1>
+<div>$$
+  \mathbf{q}_1 \cdot \mathbf{q}_2 = w_1 w_2 + \mathbf{v}_1 \cdot \mathbf{v}_2
+$$</div>
+</div><h4 id='method.rotate' class='method'><code>fn <a href='#method.rotate' class='fnname'>rotate</a>(self, v: <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Transform a vector with the quaternion</p>
+
+<h1 id='definition-6' class='section-header'><a href='#definition-6'>Definition</a></h1>
+<div>$$
+  \mathbf{p}' = \mathbf{q} \mathbf{p} \mathbf{q}^{-1}, \\
+  \textrm{where } \mathbf{p} = 0 + x \mathbf{i} + y \mathbf{j} + z \mathbf{k}
+$$</div>
+</div><h4 id='method.lerp' class='method'><code>fn <a href='#method.lerp' class='fnname'>lerp</a>(self, dest: <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;, t: T) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>linear interpolation</p>
+
+<h1 id='definition-7' class='section-header'><a href='#definition-7'>Definition</a></h1>
+<div>$$
+  \mathbf{q} = \mathrm{lerp}(\mathbf{q}_0, \mathbf{q}_1; t)
+             = \mathbf{q}_0 + t (\mathbf{q}_1 - \mathbf{q}_0), \\
+  \textrm{where } t \in \mathbb{R}
+$$</div>
+</div><h4 id='method.slerp' class='method'><code>fn <a href='#method.slerp' class='fnname'>slerp</a>(self, dest: <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;, t: T) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>spherical linear interpolation</p>
+
+<h1 id='definition-8' class='section-header'><a href='#definition-8'>Definition</a></h1>
+<div>$$
+  \mathbf{q} = \mathrm{slerp}(\mathbf{q}_0, \mathbf{q}_1; t)
+             = \frac{ \mathbf{q}_0 \sin ((1 - t) \phi) + \mathbf{q}_1 \sin (t \phi) }{ \sin \phi }, \\
+  \textrm{where } \cos \phi = \cos \frac{\theta}{2} = w_0 w_1 + x_0 x_1 + y_0 y_1 + z_0 z_1
+$$</div>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See Also</a></h1>
+<ul>
+<li><a href="http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/">Martin Baker</a></li>
+</ul>
+</div><h4 id='method.xyz' class='method'><code>fn <a href='#method.xyz' class='fnname'>xyz</a>(self) -&gt; <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>extract xyz components</p>
+</div></div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a>&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h3><div class='docblock'><p>Constructors</p>
+</div><div class='impl-items'><h4 id='method.identity' class='method'><code>fn <a href='#method.identity' class='fnname'>identity</a>() -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Construct an identity quaternion</p>
+</div><h4 id='method.zero' class='method'><code>fn <a href='#method.zero' class='fnname'>zero</a>() -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Construct a zero quaternion</p>
+</div><h4 id='method.from_angle_axis' class='method'><code>fn <a href='#method.from_angle_axis' class='fnname'>from_angle_axis</a>(angle: <a class='struct' href='../../vectormath/angle/struct.Rad.html' title='vectormath::angle::Rad'>Rad</a>&lt;T&gt;, axis: <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Construct a quaternion that rotates by <code>angle</code> around <code>axis</code></p>
+</div><h4 id='method.from_vectors' class='method'><code>fn <a href='#method.from_vectors' class='fnname'>from_vectors</a>(v0: <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;, v1: <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Construct a quaternion that rotates from one vector to another</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html' title='core::ops::Add'>Add</a> for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Addition</p>
+
+<h1 id='definition-9' class='section-header'><a href='#definition-9'>Definition</a></h1>
+<div>$$
+  \mathbf{q}_1 + \mathbf{q}_2 = (w_1 + w_2) + (x_1 + x_2) \mathbf{i} + (y_1 + y_2) \mathbf{j} + (z_1 + z_2) \mathbf{k}
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<h4 id='method.add' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html#tymethod.add' class='fnname'>add</a>(self, _rhs: <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Sub.html' title='core::ops::Sub'>Sub</a> for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Subtraction</p>
+
+<h1 id='definition-10' class='section-header'><a href='#definition-10'>Definition</a></h1>
+<div>$$
+  \mathbf{q}_1 - \mathbf{q}_2 = (w_1 - w_2) + (x_1 - x_2) \mathbf{i} + (y_1 - y_2) \mathbf{j} + (z_1 - z_2) \mathbf{k}
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-1' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Sub.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<h4 id='method.sub' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Sub.html#tymethod.sub' class='fnname'>sub</a>(self, _rhs: <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;T&gt; for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Multiplication by scalar</p>
+
+<h1 id='definition-11' class='section-header'><a href='#definition-11'>Definition</a></h1>
+<div>$$
+  \mathbf{q} \cdot s = (s w) + (s x) \mathbf{i} + (s y) \mathbf{j} + (s z) \mathbf{k}, \\
+  \textrm{where } s \in \mathbb{R}
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-2' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<h4 id='method.mul' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#tymethod.mul' class='fnname'>mul</a>(self, s: T) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;<a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;&gt; for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Multiplication by quaternion</p>
+
+<h1 id='definition-12' class='section-header'><a href='#definition-12'>Definition</a></h1>
+<div>$$
+  \mathbf{q_1} \mathbf{q_2} = (w_1 w_2 - \mathbf{v}_1 \cdot \mathbf{v}_2) + (w_1 \mathbf{v}_2 + w_2 \mathbf{v}_1 + \mathbf{v_1} \times \mathbf{v_2})
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-3' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<h4 id='method.mul-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#tymethod.mul' class='fnname'>mul</a>(self, q: <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html' title='core::ops::Neg'>Neg</a> for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Negation</p>
+
+<h1 id='definition-13' class='section-header'><a href='#definition-13'>Definition</a></h1>
+<div>$$
+  -\mathbf{q} = (-w) + (-x) \mathbf{i} + (-y) \mathbf{j} + (-z) \mathbf{k}
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-4' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<h4 id='method.neg' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html#tymethod.neg' class='fnname'>neg</a>(self) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;&gt; for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='impl-items'><h4 id='method.from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(m: <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;&gt; for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.from-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(v: <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl&lt;T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h4>
+<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h3><div class='impl-items'></div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "vectormath";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

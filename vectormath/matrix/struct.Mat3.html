@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Mat3` struct in crate `vectormath`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Mat3">
+
+    <title>vectormath::matrix::Mat3 - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>vectormath</a>::<wbr><a href='index.html'>matrix</a></p><script>window.sidebarCurrent = {name: 'Mat3', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>vectormath</a>::<wbr><a href='index.html'>matrix</a>::<wbr><a class='struct' href=''>Mat3</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-574' class='srclink' href='../../src/vectormath/src/matrix.rs.html#25' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Mat3&lt;T&gt;(pub <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;, pub <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;, pub <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;);</pre><div class='docblock'><p>3x3 Column-major Matrix</p>
+
+<h1 id='definition' class='section-header'><a href='#definition'>Definition</a></h1>
+<div>$$
+  \mathbf{M} = \begin{bmatrix}
+                   m_{0,x} & m_{1,x} & m_{2,x} \\
+                   m_{0,y} & m_{1,y} & m_{2,y} \\
+                   m_{0,z} & m_{1,z} & m_{2,z}
+               \end{bmatrix}
+    = \left[ \begin{array}{c|c|c} \mathbf{m_0} & \mathbf{m_1} & \mathbf{m_2} \end{array} \right]
+    \in \mathbb{R}^{3 \times 3} \\
+  \textrm{where } \mathbf{m_0}, \mathbf{m_1}, \mathbf{m_2} \textrm{ are column vectors } \in \mathbb{R}^3
+$$</div>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;T&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='impl-items'><h4 id='method.transpose' class='method'><code>fn <a href='#method.transpose' class='fnname'>transpose</a>(self) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Transposition</p>
+
+<h1 id='definition-1' class='section-header'><a href='#definition-1'>Definition</a></h1>
+<div>$$
+  \mathbf{M}^T
+    = \begin{bmatrix}
+          a_{0,x} & a_{1,x} & a_{2,x} \\
+          a_{0,y} & a_{1,y} & a_{2,y} \\
+          a_{0,z} & a_{1,z} & a_{2,z}
+      \end{bmatrix}^T
+    = \begin{bmatrix}
+          a_{0,x} & a_{0,y} & a_{0,z} \\
+          a_{1,x} & a_{1,y} & a_{1,z} \\
+          a_{2,x} & a_{2,y} & a_{2,z}
+      \end{bmatrix}
+$$</div>
+</div></div><h3 class='impl'><code>impl&lt;T&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='impl-items'><h4 id='method.inverse' class='method'><code>fn <a href='#method.inverse' class='fnname'>inverse</a>(self) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Inverse of the matrix</p>
+</div></div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a>&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h3><div class='docblock'><p>Constructors</p>
+</div><div class='impl-items'><h4 id='method.identity' class='method'><code>fn <a href='#method.identity' class='fnname'>identity</a>() -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Construct an identity matrix</p>
+
+<h1 id='definition-2' class='section-header'><a href='#definition-2'>Definition</a></h1>
+<div>$$
+  \mathbf{M} = \begin{bmatrix}
+                   1 & 0 & 0 \\
+                   0 & 1 & 0 \\
+                   0 & 0 & 1
+               \end{bmatrix}
+$$</div>
+</div><h4 id='method.rotation_angle_axis' class='method'><code>fn <a href='#method.rotation_angle_axis' class='fnname'>rotation_angle_axis</a>(angle: <a class='struct' href='../../vectormath/angle/struct.Rad.html' title='vectormath::angle::Rad'>Rad</a>&lt;T&gt;, axis: <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Construct a rotation matrix</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html' title='core::ops::Add'>Add</a> for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Addition</p>
+
+<h1 id='definition-3' class='section-header'><a href='#definition-3'>Definition</a></h1>
+<div>$$
+  \mathbf{A} + \mathbf{B} =
+      \left[ \begin{array}{c|c|c}
+          \mathbf{a_0} + \mathbf{b_0} &
+          \mathbf{a_1} + \mathbf{b_1} &
+          \mathbf{a_2} + \mathbf{b_2}
+      \end{array} \right]
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<h4 id='method.add' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Add.html#tymethod.add' class='fnname'>add</a>(self, _rhs: <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Sub.html' title='core::ops::Sub'>Sub</a> for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Subtraction</p>
+
+<h1 id='definition-4' class='section-header'><a href='#definition-4'>Definition</a></h1>
+<div>$$
+  \mathbf{A} - \mathbf{B} =
+      \left[ \begin{array}{c|c|c}
+          \mathbf{a_0} - \mathbf{b_0} &
+          \mathbf{a_1} - \mathbf{b_1} &
+          \mathbf{a_2} - \mathbf{b_2}
+      \end{array} \right]
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-1' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Sub.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<h4 id='method.sub' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Sub.html#tymethod.sub' class='fnname'>sub</a>(self, _rhs: <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;T&gt; for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Multiplication by scalar</p>
+
+<h1 id='definition-5' class='section-header'><a href='#definition-5'>Definition</a></h1>
+<div>$$
+  s \mathbf{A} =
+      \left[ \begin{array}{c|c|c}
+          s \mathbf{a_0} &
+          s \mathbf{a_1} &
+          s \mathbf{a_2}
+      \end{array} \right], \\
+  \textrm{where } s \in \mathbb{R}
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-2' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<h4 id='method.mul' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#tymethod.mul' class='fnname'>mul</a>(self, s: T) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;<a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;&gt; for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Multiplication by vector</p>
+
+<h1 id='definition-6' class='section-header'><a href='#definition-6'>Definition</a></h1>
+<div>$$
+  \mathbf{A} \mathbf{v}
+      = \left[ \begin{array}{c|c|c}
+            \mathbf{a_0} &
+            \mathbf{a_1} &
+            \mathbf{a_2}
+        \end{array} \right]
+        \begin{bmatrix} v_x \\ v_y \\ v_z \end{bmatrix}
+      = v_x \mathbf{a_0} + v_y \mathbf{a_1} + v_z \mathbf{a_2}
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-3' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;</code></h4>
+<h4 id='method.mul-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#tymethod.mul' class='fnname'>mul</a>(self, v: <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/vector/struct.Vec3.html' title='vectormath::vector::Vec3'>Vec3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;<a class='struct' href='../../vectormath/vector/struct.Pos3.html' title='vectormath::vector::Pos3'>Pos3</a>&lt;T&gt;&gt; for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h3><div class='docblock'><p>Multiplication by position</p>
+
+<h1 id='definition-7' class='section-header'><a href='#definition-7'>Definition</a></h1>
+<div>$$
+  \mathbf{A} \mathbf{p}
+      = \left[ \begin{array}{c|c|c}
+            \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2}
+        \end{array} \right]
+        \begin{bmatrix} p_x \\ p_y \\ p_z \end{bmatrix}
+      = p_x \mathbf{a_0} + p_y \mathbf{a_1} + p_z \mathbf{a_2}
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-4' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/vector/struct.Pos3.html' title='vectormath::vector::Pos3'>Pos3</a>&lt;T&gt;</code></h4>
+<h4 id='method.mul-2' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#tymethod.mul' class='fnname'>mul</a>(self, p: <a class='struct' href='../../vectormath/vector/struct.Pos3.html' title='vectormath::vector::Pos3'>Pos3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/vector/struct.Pos3.html' title='vectormath::vector::Pos3'>Pos3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a> for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Multiplication by matrix</p>
+
+<h1 id='definition-8' class='section-header'><a href='#definition-8'>Definition</a></h1>
+<div>$$
+  \mathbf{A} \mathbf{B}
+      = \left[ \begin{array}{c|c|c}
+            \mathbf{a_0} & \mathbf{a_1} & \mathbf{a_2}
+        \end{array} \right]
+        \left[ \begin{array}{c|c|c}
+            \mathbf{b_0} & \mathbf{b_1} & \mathbf{b_2}
+        \end{array} \right]
+      = \left[ \begin{array}{c|c|c}
+            \mathbf{A} \mathbf{b_0} &
+            \mathbf{A} \mathbf{b_1} &
+            \mathbf{A} \mathbf{b_2}
+        \end{array} \right]
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-5' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<h4 id='method.mul-3' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html#tymethod.mul' class='fnname'>mul</a>(self, other: <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html' title='core::ops::Neg'>Neg</a> for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='docblock'><p>Negation</p>
+
+<h1 id='definition-9' class='section-header'><a href='#definition-9'>Definition</a></h1>
+<div>$$
+  -\mathbf{A} =
+      \left[ \begin{array}{c|c|c}
+          - \mathbf{a_0} &
+          - \mathbf{a_1} &
+          - \mathbf{a_2}
+      \end{array} \right]
+$$</div>
+</div><div class='impl-items'><h4 id='associatedtype.Output-6' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<h4 id='method.neg' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Neg.html#tymethod.neg' class='fnname'>neg</a>(self) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../vectormath/matrix/struct.Mat4.html' title='vectormath::matrix::Mat4'>Mat4</a>&lt;T&gt;&gt; for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='impl-items'><h4 id='method.from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(m: <a class='struct' href='../../vectormath/matrix/struct.Mat4.html' title='vectormath::matrix::Mat4'>Mat4</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../vectormath/matrix/struct.Tfm3.html' title='vectormath::matrix::Tfm3'>Tfm3</a>&lt;T&gt;&gt; for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='impl-items'><h4 id='method.from-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(m: <a class='struct' href='../../vectormath/matrix/struct.Tfm3.html' title='vectormath::matrix::Tfm3'>Tfm3</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;&gt; for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../vectormath/float/trait.Float.html' title='vectormath::float::Float'>Float</a></span></code></h3><div class='impl-items'><h4 id='method.from-2' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(q: <a class='struct' href='../../vectormath/quaternion/struct.Quat.html' title='vectormath::quaternion::Quat'>Quat</a>&lt;T&gt;) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl&lt;T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h4>
+<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h3><div class='impl-items'></div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../vectormath/matrix/struct.Mat3.html' title='vectormath::matrix::Mat3'>Mat3</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "vectormath";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
