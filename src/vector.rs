@@ -6,13 +6,45 @@ use float::{Min, Max};
 use std::ops::{Add, Sub, Mul, Div, Neg};
 use std::convert::From;
 
+/// 2-D Vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v} = x \mathbf{i} + y \mathbf{j}
+///              = \begin{bmatrix} x \\ y \end{bmatrix}
+/// $$</div>
+#[derive(Debug, Copy, Clone)]
+pub struct Vec2<T> {
+    /// 1st component
+    pub x: T,
+    /// 2nd component
+    pub y: T,
+}
+
+/// 2-D Position
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p} = x \mathbf{i} + y \mathbf{j}
+///              = \begin{bmatrix} x \\ y \end{bmatrix}
+/// $$</div>
+#[derive(Debug, Copy, Clone)]
+pub struct Pos2<T> {
+    /// 1st component
+    pub x: T,
+    /// 2nd component
+    pub y: T,
+}
+
 /// 3-D Vector
 ///
 /// # Definition
 ///
 /// <div>$$
 ///   \mathbf{v} = x \mathbf{i} + y \mathbf{j} + z \mathbf{k}
-///              = \begin{bmatrix} x \\ y \\ z  \end{bmatrix}
+///              = \begin{bmatrix} x \\ y \\ z \end{bmatrix}
 /// $$</div>
 #[derive(Debug, Copy, Clone)]
 pub struct Vec3<T> {
@@ -21,7 +53,7 @@ pub struct Vec3<T> {
     /// 2nd component
     pub y: T,
     /// 3rd component
-    pub z: T
+    pub z: T,
 }
 
 /// 3-D Position
@@ -39,7 +71,7 @@ pub struct Pos3<T> {
     /// 2nd component
     pub y: T,
     /// 3rd component
-    pub z: T
+    pub z: T,
 }
 
 /// 4-D Vector
@@ -58,7 +90,7 @@ pub struct Vec4<T> {
     /// 3rd component
     pub z: T,
     /// 4th component
-    pub w: T
+    pub w: T,
 }
 
 /// Addition
@@ -760,47 +792,82 @@ impl<T: Float> Pos3<T> {
 }
 
 #[cfg(test)]
-mod test_checktype {
-    use super::*;
-    use std::ops::{Add, Sub, Mul, Div, Neg};
-    use float::{Min, Max};
+mod tests_vec2 {
+    use super::Vec2;
 
-    impl TVec3<f32> for Vec3<f32> {}
-    impl TVec4<f32> for Vec4<f32> {}
-    impl TPos3<f32> for Pos3<f32> {}
-
-    trait TVec3<T>:
-        Copy
-        + Add<Self, Output = Self>
-        + Sub<Self, Output = Self>
-        + Mul<T, Output = Self>
-        + Div<T, Output = Self>
-        + Neg<Output = Self>
-        + Min + Max
-    {
+    #[test]
+    fn test_add() {
+        unimplemented!();
     }
 
-    trait TVec4<T>:
-        Copy
-        + Add<Self, Output = Self>
-        + Sub<Self, Output = Self>
-        + Mul<T, Output = Self>
-        + Div<T, Output = Self>
-        + Neg<Output = Self>
-        + Min + Max
-    {
+    #[test]
+    fn test_sub() {
+        unimplemented!();
     }
 
-    trait TPos3<T>:
-        Copy
-        + Add<Vec3<T>, Output = Self>
-        + Sub<Vec3<T>, Output = Self>
-        + Sub<Self, Output = Vec3<T>>
-        + Mul<T, Output = Self>
-        + Div<T, Output = Self>
-        + Neg<Output = Self>
-        + Min + Max
-    {
+    #[test]
+    fn test_mul() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_div() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_neg() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_length() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_lengthsqr() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_normalize() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_dot() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_cross() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_min() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_max() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_lerp() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_x_axis() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_y_axis() {
+        unimplemented!();
     }
 }
 
@@ -1114,6 +1181,66 @@ mod tests_vec4 {
 }
 
 #[cfg(test)]
+mod tests_pos2 {
+    use super::Pos2;
+
+    #[test]
+    fn test_add() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_sub_v2() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_sub_p2() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_mul() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_div() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_neg() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_min() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_max() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_lerp() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_x_axis() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_y_axis() {
+        unimplemented!();
+    }
+}
+
+#[cfg(test)]
 mod tests_pos3 {
     use super::Pos3;
 
@@ -1292,5 +1419,55 @@ mod tests_conversion {
         assert_eq!(v2.x, 0.25);
         assert_eq!(v2.y, 0.5);
         assert_eq!(v2.z, 0.75);
+    }
+
+    #[test]
+    fn test_vec2_to_vec3() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_vec3_to_vec2() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_vec2_to_pos2() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_pos2_to_vec2() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_pos2_to_vec3() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_vec3_to_pos2() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_pos2_to_vec4() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_vec4_to_pos2() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_pos2_to_pos3() {
+        unimplemented!();
+    }
+
+    #[test]
+    fn test_pos3_to_pos2() {
+        unimplemented!();
     }
 }
