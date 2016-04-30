@@ -23,8 +23,8 @@ pub mod quaternion;
 pub mod plane;
 
 pub use angle::{Rad, Deg};
-pub use vector::{Vec3, Vec4, Pos3};
-pub use matrix::{Mat3, Mat4, Tfm3};
+pub use vector::{Vec2, Vec3, Vec4, Pos2, Pos3};
+pub use matrix::{Mat2, Mat3, Mat4, Tfm3};
 pub use quaternion::Quat;
 pub use plane::Plane;
 

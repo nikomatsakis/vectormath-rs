@@ -3,9 +3,25 @@
 
 use float::Float;
 use angle::Rad;
-use vector::{Vec3, Vec4, Pos3};
+use vector::{Vec2, Vec3, Vec4, Pos2, Pos3};
 use std::ops::{Add, Sub, Mul, Neg};
 use std::convert::From;
+
+/// 2x2 Column-major Matrix
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{M} = \begin{bmatrix}
+///                    m_{0,x} & m_{1,x} \\
+///                    m_{0,y} & m_{1,y}
+///                \end{bmatrix}
+///     = \left[ \begin{array}{c|c} \mathbf{m_0} & \mathbf{m_1} \end{array} \right]
+///     \in \mathbb{R}^{2 \times 2} \\
+///   \textrm{where } \mathbf{m_0}, \mathbf{m_1} \textrm{ are column vectors } \in \mathbb{R}^2
+/// $$</div>
+#[derive(Debug, Copy, Clone)]
+pub struct Mat2<T>(pub Vec2<T>, pub Vec2<T>);
 
 /// 3x3 Column-major Matrix
 ///
@@ -59,6 +75,25 @@ pub struct Mat4<T>(pub Vec4<T>, pub Vec4<T>, pub Vec4<T>, pub Vec4<T>);
 /// $$</div>
 #[derive(Debug, Copy, Clone)]
 pub struct Tfm3<T>(pub Vec3<T>, pub Vec3<T>, pub Vec3<T>, pub Vec3<T>);
+
+/// Addition
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} + \mathbf{B} =
+///       \left[ \begin{array}{c|c}
+///           \mathbf{a_0} + \mathbf{b_0} &
+///           \mathbf{a_1} + \mathbf{b_1}
+///       \end{array} \right]
+/// $$</div>
+impl<T> Add for Mat2<T> where T: Float {
+    type Output = Mat2<T>;
+    fn add(self, _rhs: Mat2<T>) -> Mat2<T> {
+        Mat2((self.0 + _rhs.0),
+             (self.1 + _rhs.1))
+    }
+}
 
 /// Addition
 ///
@@ -133,6 +168,25 @@ impl<T> Add for Tfm3<T> where T: Float {
 ///
 /// <div>$$
 ///   \mathbf{A} - \mathbf{B} =
+///       \left[ \begin{array}{c|c}
+///           \mathbf{a_0} - \mathbf{b_0} &
+///           \mathbf{a_1} - \mathbf{b_1}
+///       \end{array} \right]
+/// $$</div>
+impl<T> Sub for Mat2<T> where T: Float {
+    type Output = Mat2<T>;
+    fn sub(self, _rhs: Mat2<T>) -> Mat2<T> {
+        Mat2((self.0 - _rhs.0),
+             (self.1 - _rhs.1))
+    }
+}
+
+/// Subtraction
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} - \mathbf{B} =
 ///       \left[ \begin{array}{c|c|c}
 ///           \mathbf{a_0} - \mathbf{b_0} &
 ///           \mathbf{a_1} - \mathbf{b_1} &
@@ -191,6 +245,93 @@ impl<T> Sub for Tfm3<T> where T: Float {
              (self.1 - _rhs.1),
              (self.2 - _rhs.2),
              (self.3 - _rhs.3))
+    }
+}
+
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   s \mathbf{A} =
+///       \left[ \begin{array}{c|c}
+///           s \mathbf{a_0} &
+///           s \mathbf{a_1}
+///       \end{array} \right], \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
+impl<T> Mul<T> for Mat2<T> where T: Float {
+    type Output = Mat2<T>;
+    fn mul(self, s: T) -> Mat2<T> {
+        Mat2((self.0 * s),
+             (self.1 * s))
+    }
+}
+
+/// Multiplication by vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{v}
+///       = \left[ \begin{array}{c|c}
+///             \mathbf{a_0} & \mathbf{a_1}
+///         \end{array} \right]
+///         \begin{bmatrix} v_x \\ v_y  \end{bmatrix}
+///       = v_x \mathbf{a_0} + v_y \mathbf{a_1}
+/// $$</div>
+impl<T> Mul<Vec2<T>> for Mat2<T> where T: Float {
+    type Output = Vec2<T>;
+    fn mul(self, v: Vec2<T>) -> Vec2<T> {
+        let v0 = self.0 * v.x;
+        let v1 = self.1 * v.y;
+        (v0 + v1)
+    }
+}
+
+/// Multiplication by position
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{p}
+///       = \left[ \begin{array}{c|c}
+///             \mathbf{a_0} & \mathbf{a_1}
+///         \end{array} \right]
+///         \begin{bmatrix} p_x \\ p_y \end{bmatrix}
+///       = p_x \mathbf{a_0} + p_y \mathbf{a_1}
+/// $$</div>
+impl<T: Float> Mul<Pos2<T>> for Mat2<T> {
+    type Output = Pos2<T>;
+    fn mul(self, p: Pos2<T>) -> Pos2<T> {
+        let v: Vec2<T> = From::from(p);
+        From::from(self * v)
+    }
+}
+
+/// Multiplication by matrix
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{A} \mathbf{B}
+///       = \left[ \begin{array}{c|c}
+///             \mathbf{a_0} & \mathbf{a_1}
+///         \end{array} \right]
+///         \left[ \begin{array}{c|c}
+///             \mathbf{b_0} & \mathbf{b_1}
+///         \end{array} \right]
+///       = \left[ \begin{array}{c|c}
+///             \mathbf{A} \mathbf{b_0} &
+///             \mathbf{A} \mathbf{b_1}
+///         \end{array} \right]
+/// $$</div>
+impl<T> Mul for Mat2<T> where T: Float {
+    type Output = Mat2<T>;
+    fn mul(self, other: Mat2<T>) -> Mat2<T> {
+        let v0 = self * other.0;
+        let v1 = self * other.1;
+        Mat2(v0, v1)
     }
 }
 
@@ -508,6 +649,24 @@ impl<T> Mul for Tfm3<T> where T: Float {
 ///
 /// <div>$$
 ///   -\mathbf{A} =
+///       \left[ \begin{array}{c|c}
+///           - \mathbf{a_0} &
+///           - \mathbf{a_1}
+///       \end{array} \right]
+/// $$</div>
+impl<T> Neg for Mat2<T> where T: Float {
+    type Output = Mat2<T>;
+    fn neg(self) -> Mat2<T> {
+        Mat2(-self.0, -self.1)
+    }
+}
+
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{A} =
 ///       \left[ \begin{array}{c|c|c}
 ///           - \mathbf{a_0} &
 ///           - \mathbf{a_1} &
@@ -558,6 +717,29 @@ impl<T> Neg for Tfm3<T> where T: Float {
     type Output = Tfm3<T>;
     fn neg(self) -> Tfm3<T> {
         Tfm3(-self.0, -self.1, -self.2, -self.3)
+    }
+}
+
+impl<T> Mat2<T> where T: Float {
+    /// Transposition
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{M}^T
+    ///     = \begin{bmatrix}
+    ///           a_{0,x} & a_{1,x} \\
+    ///           a_{0,y} & a_{1,y}
+    ///       \end{bmatrix}^T
+    ///     = \begin{bmatrix}
+    ///           a_{0,x} & a_{0,y} \\
+    ///           a_{1,x} & a_{1,y}
+    ///       \end{bmatrix}
+    /// $$</div>
+    pub fn transpose(self) -> Mat2<T> {
+        let v0 = Vec2 { x: self.0.x, y: self.1.x };
+        let v1 = Vec2 { x: self.0.y, y: self.1.y };
+        Mat2(v0, v1)
     }
 }
 
@@ -619,6 +801,24 @@ impl<T> Mat4<T> where T: Float {
 //
 // Inversion
 //
+
+impl<T> Mat2<T> where T: Float {
+    /// Inversion
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{M}^{-1}
+    ///       = \begin{bmatrix} a & b \\ c & d \end{bmatrix}^{-1}
+    ///       = \frac{1}{a d - b c} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}
+    /// $$</div>
+    pub fn inverse(self) -> Mat2<T> {
+        let c0 = Vec2 { x: self.1.y, y: -self.0.y };
+        let c1 = Vec2 { x: -self.1.x, y: self.0.x };
+        let invd = (self.0.x * self.1.y - self.0.y * self.1.x).recip();
+        Mat2(c0 * invd, c1 * invd)
+    }
+}
 
 impl<T> Mat3<T> where T: Float {
     /// Inverse of the matrix
@@ -734,6 +934,23 @@ impl<T> From<Mat3<T>> for Tfm3<T> where T: Float {
 
 /// Constructors
 
+impl<T: Float> Mat2<T> {
+    /// Construct an identity matrix
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{M} = \begin{bmatrix}
+    ///                    1 & 0 \\
+    ///                    0 & 1
+    ///                \end{bmatrix}
+    /// $$</div>
+    pub fn identity() -> Mat2<T> {
+        Mat2(Vec2 { x: T::one(), y: T::zero() },
+             Vec2 { x: T::zero(), y: T::one() })
+    }
+}
+
 impl<T: Float> Mat3<T> {
     /// Construct an identity matrix
     ///
@@ -805,54 +1022,126 @@ impl<T: Float> Tfm3<T> {
 }
 
 #[cfg(test)]
-mod tests_checktype {
-    use super::*;
-    use vector::{Vec3, Vec4, Pos3};
-    use std::ops::{Add, Sub, Mul, Neg};
+mod tests_mat2 {
+    use super::Mat2;
+    use vector::Vec2;
 
-    impl TMat3<f32> for Mat3<f32> {}
-    impl TMat4<f32> for Mat4<f32> {}
-    impl TTfm3<f32> for Tfm3<f32> {}
-
-    impl TMat3<f64> for Mat3<f64> {}
-    impl TMat4<f64> for Mat4<f64> {}
-    impl TTfm3<f64> for Tfm3<f64> {}
-
-    trait TMat3<T>:
-        Copy
-        + Add<Self, Output = Self>
-        + Sub<Self, Output = Self>
-        + Mul<T, Output = Self>
-        + Mul<Self, Output = Self>
-        + Mul<Vec3<T>, Output = Vec3<T>>
-        + Mul<Pos3<T>, Output = Pos3<T>>
-        + Neg<Output = Self>
-    {
+    #[test]
+    fn test_add() {
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let m2 = Mat2(Vec2 { x: 9.0, y: 8.1 },
+                      Vec2 { x: 7.2, y: 6.3 });
+        let m3 = m1 + m2;
+        assert_approx_eq!(m3.0.x, 10.0);
+        assert_approx_eq!(m3.0.y, 10.1);
+        assert_approx_eq!(m3.1.x, 10.2);
+        assert_approx_eq!(m3.1.y, 10.3);
     }
 
-    trait TMat4<T>:
-        Copy
-        + Add<Self, Output = Self>
-        + Sub<Self, Output = Self>
-        + Mul<T, Output = Self>
-        + Mul<Self, Output = Self>
-        + Mul<Vec4<T>, Output = Vec4<T>>
-        + Mul<Pos3<T>, Output = Vec4<T>>
-        + Neg<Output = Self>
-    {
+    #[test]
+    fn test_sub(){
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let m2 = Mat2(Vec2 { x: 9.0, y: 8.1 },
+                      Vec2 { x: 7.2, y: 6.3 });
+        let m3 = m1 - m2;
+        assert_approx_eq!(m3.0.x, -8.0);
+        assert_approx_eq!(m3.0.y, -6.1);
+        assert_approx_eq!(m3.1.x, -4.2);
+        assert_approx_eq!(m3.1.y, -2.3);
     }
 
-    trait TTfm3<T>:
-        Copy
-        + Add<Self, Output = Self>
-        + Sub<Self, Output = Self>
-        + Mul<T, Output = Self>
-        + Mul<Self, Output = Self>
-        + Mul<Vec4<T>, Output = Vec3<T>>
-        + Mul<Vec3<T>, Output = Vec3<T>>
-        + Mul<Pos3<T>, Output = Pos3<T>>
-        + Neg<Output = Self>
-    {
+    #[test]
+    fn test_neg() {
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let m2 = -m1;
+        assert_approx_eq!(m2.0.x, -1.0);
+        assert_approx_eq!(m2.0.y, -2.0);
+        assert_approx_eq!(m2.1.x, -3.0);
+        assert_approx_eq!(m2.1.y, -4.0);
+    }
+
+    #[test]
+    fn test_mul_scalar() {
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let m2 = m1 * 0.5;
+        assert_eq!(m2.0.x, 0.5);
+        assert_eq!(m2.0.y, 1.0);
+        assert_eq!(m2.1.x, 1.5);
+        assert_eq!(m2.1.y, 2.0);
+    }
+
+    #[test]
+    fn test_mul_vec2() {
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let v1 = Vec2 { x: 1.0, y: 2.0 };
+        let v2: Vec2<_> = m1 * v1;
+        assert_eq!(v2.x, 7.0);
+        assert_eq!(v2.y, 10.0);
+    }
+
+    #[test]
+    fn test_mul_pos2() {
+        use vector::Pos2;
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let v1 = Pos2 { x: 1.0, y: 2.0 };
+        let v2: Pos2<_> = m1 * v1;
+        assert_eq!(v2.x, 7.0);
+        assert_eq!(v2.y, 10.0);
+    }
+
+    #[test]
+    fn test_mul_mat() {
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let m2 = Mat2(Vec2 { x: -2.0, y: 1.0 },
+                      Vec2 { x: 0.5, y: 1.25 });
+        let m3 = m1 * m2;
+        assert_eq!(m3.0.x, 1.0);
+        assert_eq!(m3.0.y, 0.0);
+        assert_eq!(m3.1.x, 4.25);
+        assert_eq!(m3.1.y, 6.0);
+    }
+
+    #[test]
+    fn test_transpose() {
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let m2 = m1.transpose();
+        assert_eq!(m2.0.x, 1.0);
+        assert_eq!(m2.0.y, 3.0);
+        assert_eq!(m2.1.x, 2.0);
+        assert_eq!(m2.1.y, 4.0);
+    }
+
+    #[test]
+    fn test_inverse() {
+        let m1 = Mat2(Vec2 { x: 1.0, y: 2.0 },
+                      Vec2 { x: 3.0, y: 4.0 });
+        let m2 = m1.inverse();
+        assert_eq!(m2.0.x, -2.0);
+        assert_eq!(m2.0.y, 1.0);
+        assert_eq!(m2.1.x, 1.5);
+        assert_eq!(m2.1.y, -0.5);
+        let m3 = m1 * m2;
+        assert_eq!(m3.0.x, 1.0);
+        assert_eq!(m3.0.y, 0.0);
+        assert_eq!(m3.1.x, 0.0);
+        assert_eq!(m3.1.y, 1.0);
+    }
+
+    #[test]
+    fn test_identity() {
+        let m1: Mat2<f64> = Mat2::identity();
+        assert_eq!(m1.0.x, 1.0);
+        assert_eq!(m1.0.y, 0.0);
+        assert_eq!(m1.1.x, 0.0);
+        assert_eq!(m1.1.y, 1.0);
     }
 }
 
