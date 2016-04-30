@@ -98,6 +98,21 @@ pub struct Vec4<T> {
 /// # Definition
 ///
 /// <div>$$
+///   \mathbf{v}_1 + \mathbf{v}_2 = (x_1 + x_2) \mathbf{i} + (y_1 + y_2) \mathbf{j}
+/// $$</div>
+impl<T> Add for Vec2<T> where T: Float {
+    type Output = Vec2<T>;
+    fn add(self, _rhs: Vec2<T>) -> Vec2<T> {
+        Vec2 { x: (self.x + _rhs.x),
+               y: (self.y + _rhs.y) }
+    }
+}
+
+/// Addition
+///
+/// # Definition
+///
+/// <div>$$
 ///   \mathbf{v}_1 + \mathbf{v}_2 = (x_1 + x_2) \mathbf{i} + (y_1 + y_2) \mathbf{j} + (z_1 + z_2) \mathbf{k}
 /// $$</div>
 impl<T> Add for Vec3<T> where T: Float {
@@ -139,6 +154,36 @@ impl<T> Add<Vec3<T>> for Pos3<T> where T: Float {
         Pos3 { x: (self.x + _rhs.x),
                y: (self.y + _rhs.y),
                z: (self.z + _rhs.z) }
+    }
+}
+
+/// Point Movement
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p} + \mathbf{v} = (x_p + x_v) \mathbf{i} + (y_p + y_v) \mathbf{j}
+/// $$</div>
+impl<T> Add<Vec2<T>> for Pos2<T> where T: Float {
+    type Output = Pos2<T>;
+    fn add(self, _rhs: Vec2<T>) -> Pos2<T> {
+        Pos2 { x: (self.x + _rhs.x),
+               y: (self.y + _rhs.y) }
+    }
+}
+
+/// Subtraction
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v}_1 - \mathbf{v}_2 = (x_1 - x_2) \mathbf{i} + (y_1 - y_2) \mathbf{j}
+/// $$</div>
+impl<T> Sub for Vec2<T> where T: Float {
+    type Output = Vec2<T>;
+    fn sub(self, _rhs: Vec2<T>) -> Vec2<T> {
+        Vec2 { x: (self.x - _rhs.x),
+               y: (self.y - _rhs.y) }
     }
 }
 
@@ -191,6 +236,21 @@ impl<T> Sub<Vec3<T>> for Pos3<T> where T: Float {
     }
 }
 
+/// Point Movement
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p} - \mathbf{v} = (x_p - x_v) \mathbf{i} + (y_p - y_v) \mathbf{j}
+/// $$</div>
+impl<T> Sub<Vec2<T>> for Pos2<T> where T: Float {
+    type Output = Pos2<T>;
+    fn sub(self, _rhs: Vec2<T>) -> Pos2<T> {
+        Pos2 { x: (self.x - _rhs.x),
+               y: (self.y - _rhs.y) }
+    }
+}
+
 /// Point Difference
 ///
 /// # Definition
@@ -206,6 +266,39 @@ impl<T> Sub for Pos3<T> where T: Float {
         Vec3 { x: (self.x - _rhs.x),
                y: (self.y - _rhs.y),
                z: (self.z - _rhs.z) }
+    }
+}
+
+/// Point Difference
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{p}_1 - \mathbf{p}_2
+///       = \Delta \mathbf{p}
+///       = (x_1 - x_2) \mathbf{i} + (y_1 - y_2) \mathbf{j}
+/// $$</div>
+impl<T> Sub for Pos2<T> where T: Float {
+    type Output = Vec2<T>;
+    fn sub(self, _rhs: Pos2<T>) -> Vec2<T> {
+        Vec2 { x: (self.x - _rhs.x),
+               y: (self.y - _rhs.y) }
+    }
+}
+
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v} \cdot s = (s x) \mathbf{i} + (s y) \mathbf{j}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
+impl<T> Mul<T> for Vec2<T> where T: Float {
+    type Output = Vec2<T>;
+    fn mul(self, s: T) -> Vec2<T> {
+        Vec2 { x: (self.x * s),
+               y: (self.y * s) }
     }
 }
 
@@ -249,6 +342,22 @@ impl<T> Mul<T> for Vec4<T> where T: Float {
 /// # Definition
 ///
 /// <div>$$
+///   \mathbf{p} \cdot s = (s x) \mathbf{i} + (s y) \mathbf{j}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
+impl<T> Mul<T> for Pos2<T> where T: Float {
+    type Output = Pos2<T>;
+    fn mul(self, s: T) -> Pos2<T> {
+        Pos2 { x: (self.x * s),
+               y: (self.y * s) }
+    }
+}
+
+/// Multiplication by scalar
+///
+/// # Definition
+///
+/// <div>$$
 ///   \mathbf{p} \cdot s = (s x) \mathbf{i} + (s y) \mathbf{j} + (s z) \mathbf{k}, \\
 ///   \textrm{where } s \in \mathbb{R}
 /// $$</div>
@@ -258,6 +367,22 @@ impl<T> Mul<T> for Pos3<T> where T: Float {
         Pos3 { x: (self.x * s),
                y: (self.y * s),
                z: (self.z * s) }
+    }
+}
+
+/// Division by scalar
+///
+/// # Definition
+///
+/// <div>$$
+///   \frac{\mathbf{v}}{s} = \frac{x}{s} \mathbf{i} + \frac{y}{s} \mathbf{j}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
+impl<T> Div<T> for Vec2<T> where T: Float {
+    type Output = Vec2<T>;
+    fn div(self, s: T) -> Vec2<T> {
+        Vec2 { x: (self.x / s),
+               y: (self.y / s) }
     }
 }
 
@@ -301,6 +426,22 @@ impl<T> Div<T> for Vec4<T> where T: Float {
 /// # Definition
 ///
 /// <div>$$
+///   \frac{\mathbf{p}}{s} = \frac{x}{s} \mathbf{i} + \frac{y}{s} \mathbf{j}, \\
+///   \textrm{where } s \in \mathbb{R}
+/// $$</div>
+impl<T> Div<T> for Pos2<T> where T: Float {
+    type Output = Pos2<T>;
+    fn div(self, s: T) -> Pos2<T> {
+        Pos2 { x: (self.x / s),
+               y: (self.y / s) }
+    }
+}
+
+/// Division by scalar
+///
+/// # Definition
+///
+/// <div>$$
 ///   \frac{\mathbf{p}}{s} = \frac{x}{s} \mathbf{i} + \frac{y}{s} \mathbf{j} + \frac{z}{s} \mathbf{k}, \\
 ///   \textrm{where } s \in \mathbb{R}
 /// $$</div>
@@ -310,6 +451,20 @@ impl<T> Div<T> for Pos3<T> where T: Float {
         Pos3 { x: (self.x / s),
                y: (self.y / s),
                z: (self.z / s) }
+    }
+}
+
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
+///   -\mathbf{v} = (-x) \mathbf{i} + (-y) \mathbf{j}
+/// $$</div>
+impl<T> Neg for Vec2<T> where T: Float {
+    type Output = Vec2<T>;
+    fn neg(self) -> Vec2<T> {
+        Vec2 { x: -self.x, y: -self.y }
     }
 }
 
@@ -346,6 +501,20 @@ impl<T> Neg for Vec4<T> where T: Float {
 /// # Definition
 ///
 /// <div>$$
+///   -\mathbf{v} = (-x) \mathbf{i} + (-y) \mathbf{j}
+/// $$</div>
+impl<T> Neg for Pos2<T> where T: Float {
+    type Output = Pos2<T>;
+    fn neg(self) -> Pos2<T> {
+        Pos2 { x: -self.x, y: -self.y }
+    }
+}
+
+/// Negation
+///
+/// # Definition
+///
+/// <div>$$
 ///   -\mathbf{v} = (-x) \mathbf{i} + (-y) \mathbf{j} + (-z) \mathbf{k}
 /// $$</div>
 impl<T> Neg for Pos3<T> where T: Float {
@@ -358,6 +527,70 @@ impl<T> Neg for Pos3<T> where T: Float {
 //
 // Functions
 //
+
+impl<T: Float> Vec2<T> {
+    /// Dot Product
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    /// \mathbf{a} \cdot \mathbf{b} =
+    ///   \begin{bmatrix} a_x & a_y \end{bmatrix}
+    ///   \begin{bmatrix} b_x \\ b_y \end{bmatrix}
+    ///   = a_x b_x + a_y b_y
+    /// $$</div>
+    pub fn dot(self, rhs: Self) -> T {
+        let mx = self.x * rhs.x;
+        let my = self.y * rhs.y;
+        (mx + my)
+    }
+
+    /// Magnitude
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   |\mathbf{v}| = \sqrt{\mathbf{v} \cdot \mathbf{v}}
+    /// $$</div>
+    pub fn length(self) -> T {
+        self.length_squared().sqrt()
+    }
+
+    /// Squared Magnitude
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   |\mathbf{v}|^2 = \mathbf{v} \cdot \mathbf{v}
+    /// $$</div>
+    pub fn length_squared(self) -> T {
+        self.dot(self)
+    }
+
+    /// Normalization
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \hat{\mathbf{v}} = \frac{\mathbf{v}}{|\mathbf{v}|}
+    /// $$</div>
+    pub fn normalize(self) -> Vec2<T> {
+        self * self.length_squared().rsqrt()
+    }
+
+    /// Linear Interpolation
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \mathrm{lerp}(\mathbf{v}_0, \mathbf{v}_1; t)
+    ///              = \mathbf{v}_0 + t (\mathbf{v}_1 - \mathbf{v}_0), \\
+    ///   \textrm{where } t \in \mathbb{R}
+    /// $$</div>
+    pub fn lerp(self, dest: Vec2<T>, t: T) -> Vec2<T> {
+        self + (dest - self) * t
+    }
+}
 
 impl<T: Float> Vec3<T> {
     /// Dot Product
@@ -512,6 +745,21 @@ impl<T: Float> Vec4<T> {
     }
 }
 
+impl<T: Float> Pos2<T> {
+    /// Linear Interpolation
+    ///
+    /// # Definition
+    ///
+    /// <div>$$
+    ///   \mathbf{p} = \mathrm{lerp}(\mathbf{p}_0, \mathbf{p}_1; t)
+    ///              = \mathbf{p}_0 + t (\mathbf{p}_1 - \mathbf{p}_0), \\
+    ///   \textrm{where } t \in \mathbb{R}
+    /// $$</div>
+    pub fn lerp(self, dest: Pos2<T>, t: T) -> Pos2<T> {
+        self + (dest - self) * t
+    }
+}
+
 impl<T: Float> Pos3<T> {
     /// Linear Interpolation
     ///
@@ -524,6 +772,24 @@ impl<T: Float> Pos3<T> {
     /// $$</div>
     pub fn lerp(self, dest: Pos3<T>, t: T) -> Pos3<T> {
         self + (dest - self) * t
+    }
+}
+
+/// Component-wise minimum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{min}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{min}(a_x, b_x) \\
+///           \mathrm{min}(a_y, b_y)
+///       \end{bmatrix}
+/// $$</div>
+impl<T: Float> Min for Vec2<T> {
+    fn min(self, _rhs: Self) -> Self {
+        let mx = self.x.min(_rhs.x);
+        let my = self.y.min(_rhs.y);
+        Vec2 { x: mx, y: my }
     }
 }
 
@@ -576,6 +842,24 @@ impl<T: Float> Min for Vec4<T> {
 /// <div>$$
 ///   \mathrm{min}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
 ///           \mathrm{min}(a_x, b_x) \\
+///           \mathrm{min}(a_y, b_y)
+///       \end{bmatrix}
+/// $$</div>
+impl<T: Float> Min for Pos2<T> {
+    fn min(self, _rhs: Self) -> Self {
+        let mx = self.x.min(_rhs.x);
+        let my = self.y.min(_rhs.y);
+        Pos2 { x: mx, y: my }
+    }
+}
+
+/// Component-wise minimum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{min}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{min}(a_x, b_x) \\
 ///           \mathrm{min}(a_y, b_y) \\
 ///           \mathrm{min}(a_z, b_z)
 ///       \end{bmatrix}
@@ -586,6 +870,24 @@ impl<T: Float> Min for Pos3<T> {
         let my = self.y.min(_rhs.y);
         let mz = self.z.min(_rhs.z);
         Pos3 { x: mx, y: my, z: mz }
+    }
+}
+
+/// Component-wise maximum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{max}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{max}(a_x, b_x) \\
+///           \mathrm{max}(a_y, b_y)
+///       \end{bmatrix}
+/// $$</div>
+impl<T: Float> Max for Vec2<T> {
+    fn max(self, _rhs: Self) -> Self {
+        let mx = self.x.max(_rhs.x);
+        let my = self.y.max(_rhs.y);
+        Vec2 { x: mx, y: my }
     }
 }
 
@@ -638,6 +940,24 @@ impl<T: Float> Max for Vec4<T> {
 /// <div>$$
 ///   \mathrm{max}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
 ///           \mathrm{max}(a_x, b_x) \\
+///           \mathrm{max}(a_y, b_y)
+///       \end{bmatrix}
+/// $$</div>
+impl<T: Float> Max for Pos2<T> {
+    fn max(self, _rhs: Self) -> Self {
+        let mx = self.x.max(_rhs.x);
+        let my = self.y.max(_rhs.y);
+        Pos2 { x: mx, y: my }
+    }
+}
+
+/// Component-wise maximum
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathrm{max}(\mathbf{a},\mathbf{b}) = \begin{bmatrix}
+///           \mathrm{max}(a_x, b_x) \\
 ///           \mathrm{max}(a_y, b_y) \\
 ///           \mathrm{max}(a_z, b_z)
 ///       \end{bmatrix}
@@ -648,6 +968,33 @@ impl<T: Float> Max for Pos3<T> {
         let my = self.y.max(_rhs.y);
         let mz = self.z.max(_rhs.z);
         Pos3 { x: mx, y: my, z: mz }
+    }
+}
+
+/// Cast from 2-D Position to 2-D Vector
+impl<T> From<Pos2<T>> for Vec2<T> {
+    fn from(p: Pos2<T>) -> Vec2<T> {
+        Vec2 { x: p.x, y: p.y }
+    }
+}
+
+/// Cast from 3-D Vector to 2-D Vector
+impl<T> From<Vec3<T>> for Vec2<T> {
+    fn from(v: Vec3<T>) -> Vec2<T> {
+        Vec2 { x: v.x, y: v.y }
+    }
+}
+
+/// Cast from 2-D Vector to 3-D Vector
+///
+/// # Definition
+///
+/// <div>$$
+///   \mathbf{v} = \begin{bmatrix} x \\ y \\ 0 \end{bmatrix}
+/// $$</div>
+impl<T> From<Vec2<T>> for Vec3<T> where T: Float {
+    fn from(v: Vec2<T>) -> Vec3<T> {
+        Vec3 { x: v.x, y: v.y, z: T::zero() }
     }
 }
 
@@ -691,6 +1038,13 @@ impl<T> From<Pos3<T>> for Vec4<T> where T: Float {
     }
 }
 
+/// Cast from 2-D Vector to 2-D Position
+impl<T> From<Vec2<T>> for Pos2<T> {
+    fn from(v: Vec2<T>) -> Pos2<T> {
+        Pos2 { x: v.x, y: v.y }
+    }
+}
+
 /// Cast from 3-D Vector to 3-D Position
 impl<T> From<Vec3<T>> for Pos3<T> {
     fn from(v: Vec3<T>) -> Pos3<T> {
@@ -714,6 +1068,22 @@ impl<T> From<Vec4<T>> for Pos3<T> where T: Float {
 //
 // Constructors
 //
+
+impl<T: Float> Vec2<T> {
+    /// X Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
+    /// $$</div>
+    pub fn x_axis() -> Vec2<T> { Vec2{ x: T::one(), y: T::zero() } }
+
+    /// Y Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+    /// $$</div>
+    pub fn y_axis() -> Vec2<T> { Vec2{ x: T::zero(), y: T::one() } }
+}
 
 impl<T: Float> Vec3<T> {
     /// X Axis
@@ -768,6 +1138,22 @@ impl<T: Float> Vec4<T> {
     pub fn w_axis() -> Vec4<T> { Vec4{ x: T::zero(), y: T::zero(), z: T::zero(), w: T::one() } }
 }
 
+impl<T: Float> Pos2<T> {
+    /// X Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
+    /// $$</div>
+    pub fn x_axis() -> Pos2<T> { Pos2{ x: T::one(), y: T::zero() } }
+
+    /// Y Axis
+    ///
+    /// <div>$$
+    ///   \mathbf{v} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+    /// $$</div>
+    pub fn y_axis() -> Pos2<T> { Pos2{ x: T::zero(), y: T::one() } }
+}
+
 impl<T: Float> Pos3<T> {
     /// X Axis
     ///
@@ -797,77 +1183,117 @@ mod tests_vec2 {
 
     #[test]
     fn test_add() {
-        unimplemented!();
+        let v1 = Vec2 { x: 1.0, y: 2.0 };
+        let v2 = Vec2 { x: 0.5, y: -1.5 };
+        let v3 = v1 + v2;
+        assert_eq!(v3.x, 1.5);
+        assert_eq!(v3.y, 0.5);
     }
 
     #[test]
     fn test_sub() {
-        unimplemented!();
+        let v1 = Vec2 { x: 1.0, y: 2.0 };
+        let v2 = Vec2 { x: 0.5, y: -1.5 };
+        let v3 = v1 - v2;
+        assert_eq!(v3.x, 0.5);
+        assert_eq!(v3.y, 3.5);
     }
 
     #[test]
     fn test_mul() {
-        unimplemented!();
+        let v = Vec2 { x: 0.5, y: -1.5 };
+        let v2 = v * 2.0_f32;
+        assert_eq!(v2.x, 1.0);
+        assert_eq!(v2.y, -3.0);
     }
 
     #[test]
     fn test_div() {
-        unimplemented!();
+        let v = Vec2 { x: 0.5, y: -1.5 };
+        let v2 = v / 2.0_f32;
+        assert_eq!(v2.x, 0.25);
+        assert_eq!(v2.y, -0.75);
     }
 
     #[test]
     fn test_neg() {
-        unimplemented!();
+        let v1 = Vec2 { x: 1.0, y: -0.5 };
+        let v2 = -v1;
+        assert_eq!(v2.x, -1.0);
+        assert_eq!(v2.y, 0.5);
     }
 
     #[test]
     fn test_length() {
-        unimplemented!();
+        let v1 = Vec2 { x: 3.0, y: -4.0 };
+        let s = v1.length();
+        assert_eq!(s, 5.0);
     }
 
     #[test]
     fn test_lengthsqr() {
-        unimplemented!();
+        let v1 = Vec2 { x: 3.0, y: -4.0 };
+        let s = v1.length_squared();
+        assert_eq!(s, 25.0);
     }
 
     #[test]
     fn test_normalize() {
-        unimplemented!();
+        let a = Vec2 { x: 3.0, y: -4.0 };
+        let b = a.normalize();
+        assert_approx_eq!(b.x, 3.0 / 5.0);
+        assert_approx_eq!(b.y, -4.0 / 5.0);
     }
 
     #[test]
     fn test_dot() {
-        unimplemented!();
-    }
-
-    #[test]
-    fn test_cross() {
-        unimplemented!();
+        let a = Vec2 { x: 3.0, y: 0.5 };
+        let b = Vec2 { x: 0.25, y: -2.0 };
+        let dp = a.dot(b);
+        assert_eq!(dp, -0.25);
     }
 
     #[test]
     fn test_min() {
-        unimplemented!();
+        use float::Min;
+        let a = Vec2 { x: 1.0, y: 2.0 };
+        let b = Vec2 { x: 0.5, y: 4.0 };
+        let vmin = a.min(b);
+        assert_eq!(vmin.x, 0.5);
+        assert_eq!(vmin.y, 2.0);
     }
 
     #[test]
     fn test_max() {
-        unimplemented!();
+        use float::Max;
+        let a = Vec2 { x: 1.0, y: 2.0 };
+        let b = Vec2 { x: 0.5, y: 4.0 };
+        let vmax = a.max(b);
+        assert_eq!(vmax.x, 1.0);
+        assert_eq!(vmax.y, 4.0);
     }
 
     #[test]
     fn test_lerp() {
-        unimplemented!();
+        let a = Vec2 { x: 1.0, y: 2.0 };
+        let b = Vec2 { x: 0.0, y: -5.0 };
+        let c = a.lerp(b, 0.25);
+        assert_eq!(c.x, 0.75);
+        assert_eq!(c.y, 0.25);
     }
 
     #[test]
     fn test_x_axis() {
-        unimplemented!();
+        let v: Vec2<f64> = Vec2::x_axis();
+        assert_eq!(v.x, 1.0);
+        assert_eq!(v.y, 0.0);
     }
 
     #[test]
     fn test_y_axis() {
-        unimplemented!();
+        let v: Vec2<f64> = Vec2::y_axis();
+        assert_eq!(v.x, 0.0);
+        assert_eq!(v.y, 1.0);
     }
 }
 
@@ -1186,57 +1612,99 @@ mod tests_pos2 {
 
     #[test]
     fn test_add() {
-        unimplemented!();
+        use super::Vec2;
+        let v1 = Pos2 { x: 1.0, y: 2.0 };
+        let v2 = Vec2 { x: 0.5, y: -1.5 };
+        let v3: Pos2<f32> = v1 + v2;
+        assert_eq!(v3.x, 1.5);
+        assert_eq!(v3.y, 0.5);
     }
 
     #[test]
     fn test_sub_v2() {
-        unimplemented!();
+        use super::Vec2;
+        let v1 = Pos2 { x: 1.0, y: 2.0 };
+        let v2 = Vec2 { x: 0.5, y: -1.5 };
+        let v3: Pos2<f32> = v1 - v2;
+        assert_eq!(v3.x, 0.5);
+        assert_eq!(v3.y, 3.5);
     }
 
     #[test]
     fn test_sub_p2() {
-        unimplemented!();
+        use super::Vec2;
+        let v1 = Pos2 { x: 1.0, y: 2.0 };
+        let v2 = Pos2 { x: 0.5, y: -1.5 };
+        let v3: Vec2<f32> = v1 - v2;
+        assert_eq!(v3.x, 0.5);
+        assert_eq!(v3.y, 3.5);
     }
 
     #[test]
     fn test_mul() {
-        unimplemented!();
+        let v = Pos2 { x: 0.5, y: -1.5 };
+        let v2 = v * 2.0_f32;
+        assert_eq!(v2.x, 1.0);
+        assert_eq!(v2.y, -3.0);
     }
 
     #[test]
     fn test_div() {
-        unimplemented!();
+        let v = Pos2 { x: 0.5, y: -1.5 };
+        let v2 = v / 2.0_f32;
+        assert_eq!(v2.x, 0.25);
+        assert_eq!(v2.y, -0.75);
     }
 
     #[test]
     fn test_neg() {
-        unimplemented!();
+        let v1 = Pos2 { x: 1.0, y: 0.5 };
+        let v2 = -v1;
+        assert_eq!(v2.x, -1.0);
+        assert_eq!(v2.y, -0.5);
     }
 
     #[test]
     fn test_min() {
-        unimplemented!();
+        use float::Min;
+        let a = Pos2 { x: 1.0, y: 2.0 };
+        let b = Pos2 { x: 0.5, y: 4.0 };
+        let vmin = a.min(b);
+        assert_eq!(vmin.x, 0.5);
+        assert_eq!(vmin.y, 2.0);
     }
 
     #[test]
     fn test_max() {
-        unimplemented!();
+        use float::Max;
+        let a = Pos2 { x: 1.0, y: 2.0 };
+        let b = Pos2 { x: 0.5, y: 4.0 };
+        let vmax = a.max(b);
+        assert_eq!(vmax.x, 1.0);
+        assert_eq!(vmax.y, 4.0);
     }
 
     #[test]
     fn test_lerp() {
-        unimplemented!();
+        let a = Pos2 { x: 1.0, y: 2.0 };
+        let b = Pos2 { x: 0.0, y: -5.0 };
+        let c: Pos2<_> = a.lerp(b, 0.25);
+        assert_eq!(c.x, 0.75);
+        assert_eq!(c.y, 0.25);
     }
 
     #[test]
     fn test_x_axis() {
-        unimplemented!();
+        let v: Pos2<f64> = Pos2::x_axis();
+        assert_eq!(v.x, 1.0);
+        assert_eq!(v.y, 0.0);
     }
 
     #[test]
     fn test_y_axis() {
-        unimplemented!();
+        let v: Pos2<f64> = Pos2::y_axis();
+        assert_eq!(v.x, 0.0);
+        assert_eq!(v.y, 1.0);
     }
 }
 
@@ -1363,7 +1831,7 @@ mod tests_pos3 {
 
 #[cfg(test)]
 mod tests_conversion {
-    use super::{Vec3, Vec4, Pos3};
+    use super::{Vec2, Vec3, Vec4, Pos2, Pos3};
 
     #[test]
     fn test_vec3_to_vec4() {
@@ -1423,22 +1891,35 @@ mod tests_conversion {
 
     #[test]
     fn test_vec2_to_vec3() {
-        unimplemented!();
+        let v1 = Vec2 { x: 1.0, y: 2.0 };
+        let v2: Vec3<f32> = From::from(v1);
+        assert_eq!(v2.x, 1.0);
+        assert_eq!(v2.y, 2.0);
+        assert_eq!(v2.z, 0.0);
     }
 
     #[test]
     fn test_vec3_to_vec2() {
-        unimplemented!();
+        let v1 = Vec3 { x: 1.0, y: 2.0, z: 3.0 };
+        let v2: Vec2<f32> = From::from(v1);
+        assert_eq!(v2.x, 1.0);
+        assert_eq!(v2.y, 2.0);
     }
 
     #[test]
     fn test_vec2_to_pos2() {
-        unimplemented!();
+        let v1 = Vec2 { x: 1.0, y: 2.0 };
+        let v2: Pos2<f32> = From::from(v1);
+        assert_eq!(v2.x, 1.0);
+        assert_eq!(v2.y, 2.0);
     }
 
     #[test]
     fn test_pos2_to_vec2() {
-        unimplemented!();
+        let v1 = Pos2 { x: 1.0, y: 2.0 };
+        let v2: Vec2<f32> = From::from(v1);
+        assert_eq!(v2.x, 1.0);
+        assert_eq!(v2.y, 2.0);
     }
 
     #[test]
