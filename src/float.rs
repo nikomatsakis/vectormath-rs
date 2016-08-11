@@ -130,7 +130,7 @@ pub trait Ops {
 }
 
 /// Trait of Trigonometry
-pub trait Trig {
+pub trait Trig: Sized {
     /// Sine
     fn sin(self) -> Self;
 
